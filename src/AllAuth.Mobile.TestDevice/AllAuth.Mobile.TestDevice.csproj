@@ -1,0 +1,193 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C02800B4-3810-4081-B875-2DF3E82D2C81}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AllAuth.Mobile.TestDevice</RootNamespace>
+    <AssemblyName>AllAuth.Mobile.TestDevice</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\build\debug\AllAuth.Mobile.TestDevice\</OutputPath>
+    <IntermediateOutputPath>..\..\build\obj\debug\AllAuth.Mobile.TestDevice\</IntermediateOutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\build\release\AllAuth.Mobile.TestDevice\</OutputPath>
+    <IntermediateOutputPath>..\..\build\obj\release\AllAuth.Mobile.TestDevice\</IntermediateOutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="FluentMigrator, Version=1.6.1.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\FluentMigrator.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.8.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="OATH.Net, Version=0.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\OATH.Net.0.2\lib\net40\OATH.Net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SQLite.Net, Version=3.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SQLite.Net.Core-PCL.3.1.1\lib\portable-win8+net45+wp8+wpa81+MonoAndroid1+MonoTouch1\SQLite.Net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SQLite.Net.Platform.Generic, Version=3.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SQLite.Net-PCL.3.1.1\lib\net40\SQLite.Net.Platform.Generic.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SQLite.Net.Platform.Win32, Version=3.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SQLite.Net-PCL.3.1.1\lib\net4\SQLite.Net.Platform.Win32.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AccountDatabase\MigrationsRunner.cs" />
+    <Compile Include="AccountDatabase\Migrations\Mig0001CreateInitialTables.cs" />
+    <Compile Include="AccountDatabase\Migrations\Mig0002PendingSecretRequestsTable.cs" />
+    <Compile Include="AccountModels\EntriesSharedSecretsData.cs" />
+    <Compile Include="AccountModels\EntriesSharedSecretsSync.cs" />
+    <Compile Include="AccountModels\ServerAccountSettings.cs" />
+    <Compile Include="AppDatabase\DbConnection.cs" />
+    <Compile Include="AppDatabase\MigrationsRunner.cs" />
+    <Compile Include="AppDatabase\Migrations\Mig0001CreateInitialTables.cs" />
+    <Compile Include="AppModel.cs" />
+    <Compile Include="AppModels\ServerAccounts.cs" />
+    <Compile Include="AccountDatabase\DbConnection.cs" />
+    <Compile Include="Forms\BasicControls.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\BasicControls.Designer.cs">
+      <DependentUpon>BasicControls.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\AddNewServer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AddNewServer.Designer.cs">
+      <DependentUpon>AddNewServer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\OtpCode.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\OtpCode.Designer.cs">
+      <DependentUpon>OtpCode.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\OtpNewAccount.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\OtpNewAccount.Designer.cs">
+      <DependentUpon>OtpNewAccount.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\SetRecoveryKey.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SetRecoveryKey.Designer.cs">
+      <DependentUpon>SetRecoveryKey.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\VerifyRecoveryPublicKey.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\VerifyRecoveryPublicKey.Designer.cs">
+      <DependentUpon>VerifyRecoveryPublicKey.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AccountModel.cs" />
+    <Compile Include="AccountModels\CryptoKeys.cs" />
+    <Compile Include="AccountModels\Entries.cs" />
+    <Compile Include="AccountModels\EntriesSharedSecrets.cs" />
+    <Compile Include="AccountModels\Links.cs" />
+    <Compile Include="AccountModels\LinksDatabaseBackups.cs" />
+    <Compile Include="AccountModels\OtpAccounts.cs" />
+    <Compile Include="Controller.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SyncAccounts.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="config.dev.ini" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Forms\BasicControls.resx">
+      <DependentUpon>BasicControls.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AddNewServer.resx">
+      <DependentUpon>AddNewServer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\OtpCode.resx">
+      <DependentUpon>OtpCode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\OtpNewAccount.resx">
+      <DependentUpon>OtpNewAccount.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SetRecoveryKey.resx">
+      <DependentUpon>SetRecoveryKey.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\VerifyRecoveryPublicKey.resx">
+      <DependentUpon>VerifyRecoveryPublicKey.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Lib\src\AllAuth.Lib.Db.Sqlite\AllAuth.Lib.Db.Sqlite.csproj">
+      <Project>{15719ef5-5f78-43ca-9c83-9e02a8ef6e91}</Project>
+      <Name>AllAuth.Lib.Db.Sqlite</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Lib\src\AllAuth.Lib\AllAuth.Lib.csproj">
+      <Project>{c4f0810e-243e-419c-866b-f0ff5ebb0023}</Project>
+      <Name>AllAuth.Lib</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>if not '$(SolutionDir)' == '*Undefined*' start /MIN $(SolutionDir)tools\nant\NAnt.exe -buildfile:$(SolutionDir)default.build -D:configuration=$(ConfigurationName) allauth-testdevice-postbuild
+</PostBuildEvent>
+  </PropertyGroup>
+  <Import Project="..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

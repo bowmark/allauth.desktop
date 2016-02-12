@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=AllAuth
+Comment=AllAuth Login Manager
+Exec=/usr/bin/allauth
+#Icon=/usr/share/pixmaps/my_icon.png
+#Terminal=true
+Type=Application
+Categories=Office

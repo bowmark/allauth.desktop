@@ -1,0 +1,281 @@
+<?xml version="1.0"?>
+<project name="AllAuth.Desktop" default="allauth">
+
+  <!-- Required scripts script -->
+  <script language="C#" prefix="sign-file-password-prompt" >
+      <code><![CDATA[
+          [Function("ask")]
+          public string AskPassword(string prompt) {
+              Project.Log(Level.Info, prompt);
+              ConsoleColor oldColor = Console.ForegroundColor;
+              Console.ForegroundColor = Console.BackgroundColor;
+              try
+              {
+                  return Console.ReadLine();
+              }
+              finally
+              {
+                  Console.ForegroundColor = oldColor;
+              }
+          }
+      ]]></code>
+  </script>
+
+  <!-- User-definable properties -->
+  <if test="${not property::exists('configuration')}">
+    <property name="configuration" value="Debug" />
+  </if>
+
+  <if test="${not property::exists('signfiles')}">
+    <property name="signfiles" value="false" />
+    <if test="${configuration == 'Release'}">
+      <property name="signfiles" value="true" />
+    </if>
+  </if>
+
+  <!-- Internal properties -->
+  <property name="SolutionDir" value="${project::get-base-directory()}"/>
+  <property name="SolutionFile" value="${SolutionDir}/AllAuth.Desktop.sln"/>
+  <property name="BuildDir" value="build" />
+  <if test="${platform::is-windows()}">
+    <property name="BuildTool" value="C:\Program Files (x86)\MSBuild\14.0\Bin\MSBuild.exe" readonly="true"/>
+  </if>
+  <if test="${platform::is-unix()}">
+    <property name="BuildTool" value="xbuild" readonly="true"/>
+  </if>
+
+  <!--
+    Util Targets
+  -->
+
+  <target name="clean" description="Deletes the build output folder">
+    <delete>
+      <fileset basedir="${BuildDir}">
+        <include name="**\*" />
+      </fileset>
+    </delete>
+  </target>
+
+  <target name="clean-dist" description="Deletes the dist output folder">
+    <delete>
+      <fileset basedir="${BuildDir}">
+        <include name="dist/**" />
+        <include name="win-installer/**" />
+      </fileset>
+    </delete>
+  </target>
+
+  <target name="nuget-restore">
+    <exec program="nuget.exe" basedir="tools">
+    <arg value="restore" />
+      <arg path="${SolutionFile}" />
+    </exec>
+  </target>
+
+  <target name="get-version">
+    <!-- Must not be called standalone as it requires some properties set. -->
+    <foreach item="Line" in="src/${Project}/VERSION" delim="=" property="type,val" trim="Both">
+      <if test="${type=='Major'}">
+          <property name="VersionMajor" value="${val}"/>
+      </if>
+      <if test="${type=='Minor'}">
+          <property name="VersionMinor" value="${val}"/>
+      </if>
+      <if test="${type=='Patch'}">
+          <property name="VersionPatch" value="${val}"/>
+      </if>
+      <if test="${type=='Build'}">
+          <property name="VersionBuild" value="${val}"/>
+      </if>
+    </foreach>
+    <property name="VersionProgram" value="${VersionMajor}.${VersionMinor}.${VersionPatch}"/>
+    <property name="VersionFull" value="${VersionMajor}.${VersionMinor}.${VersionPatch}.${VersionBuild}"/>
+  </target>
+
+  <target name="set-assembly-version"
+          description="Generates the AssemblyVersionInfo.cs for the project">
+    <!-- Remember to set the version properties before usage -->
+    <!-- Must not be called standalone as it requires some properties set. -->
+    <asminfo output="src/${Project}/Properties/AssemblyVersionInfo.cs" language="CSharp">
+			<attributes>
+				<attribute type="System.Reflection.AssemblyVersionAttribute" value="${VersionFull}" />
+				<attribute type="System.Reflection.AssemblyFileVersionAttribute" value="${VersionFull}"/>
+			</attributes>
+		</asminfo>
+	</target>
+
+  <target name="build-csproj" description="Build a given csproj">
+    <!-- Must not be called standalone as it requires some properties set. -->
+    <exec program="${BuildTool}">
+      <arg path="src/${Project}/${Project}.csproj" />
+      <arg line="/property:Configuration=${configuration}" />
+      <arg value="/target:Rebuild" />
+      <arg value="/verbosity:normal" />
+      <arg value="/nologo" />
+    </exec>
+  </target>
+
+  <target name="sign-file">
+    <!-- Remember to set the ${fileToSign} property before calling this. -->
+    <!-- Must not be called standalone as it requires some properties set. -->
+    <if test="${signfiles == 'true'}">
+      <exec program="tools/codesigning/signtool">
+        <arg line="sign /fd sha256 /tr http://timestamp.geotrust.com/tsa /td SHA256 /v /p" />
+        <arg value="${sign-password}" />
+        <arg value="/f" />
+        <arg path="../../Certs/CodeSigning-Release.p12" />
+        <arg path="${fileToSign}" />
+      </exec>
+    </if>
+  </target>
+
+
+  <target name="common-postbuild">
+    <if test="${configuration=='Debug'}">
+      <copy file="src/${Project}/config.dev.ini" tofile="build/debug/${Project}/config.ini" />
+    </if>
+  </target>
+
+  <target name="pkg-linux">
+    <!-- Must not be called standalone as it requires some properties set. -->
+    <!-- Remember to have called get-version for the project before calling this -->
+    <if test="${not platform::is-unix()}">
+      <fail message="Target must be run on linux"/>
+    </if>
+    <exec program="bash">
+      <arg path="scripts/${PackageName}-pkg-deb/mkdeb.sh" />
+      <arg value="${VersionProgram}"/>
+      <arg value="${VersionFull}"/>
+    </exec>
+  </target>
+
+  <target name="common-prebuild">
+
+  </target>
+
+  <target name="all" depends="nuget-restore allauth" />
+
+  <!--
+    Desktop application
+  -->
+
+  <target name="allauth" description="Build the desktop application">
+    <call target="allauth-prebuild" />
+    <property name="Project" value="AllAuth.Desktop"/>
+    <call target="build-csproj" />
+    <call target="allauth-postbuild" />
+  </target>
+
+  <target name="allauth-prebuild" depends="common-prebuild">
+    <!-- Uses the same version for all subprojects. -->
+    <property name="Project" value="AllAuth.Desktop"/>
+    <call target="get-version" />
+    <call target="set-assembly-version" />
+    <property name="Project" value="AllAuth.Desktop.Common.Database"/>
+    <call target="set-assembly-version" />
+    <property name="Project" value="AllAuth.Desktop.Common.Models"/>
+    <call target="set-assembly-version" />
+  </target>
+
+  <target name="allauth-postbuild">
+    <property name="Project" value="AllAuth.Desktop"/>
+    <call target="common-postbuild" />
+    <if test="${platform::is-windows()}">
+      <!-- Windows needs the native binary in the application directory to run the application. -->
+      <!-- Unix should have it installed elsewhere -->
+      <copy file="lib/sqlite-native-win/SQLite.Interop-x86.dll" tofile="build/${configuration}/${Project}/sqlite3.dll" />
+    </if>
+  </target>
+
+  <target name="pkg-win" depends="clean-dist allauth">
+    <property name="PackageName" value="AllAuth"/>
+    <property name="Project" value="AllAuth.Desktop"/>
+    <call target="get-version" />
+
+    <!-- Sign all PE files -->
+    <property name="sign-password" value="${sign-file-password-prompt::ask('Password for code signing certificate?')}" />
+    <if test="${configuration=='Release'}">
+      <foreach item="File" property="filename" in="build/release/${Project}">
+        <do>
+          <if test="${not string::ends-with(filename, '.vshost.exe')}">
+            <if test="${string::ends-with(filename,'.dll') or string::ends-with(filename,'.exe')}">
+              <property name="fileToSign" value="${filename}"/>
+              <call target="sign-file"/>
+            </if>
+          </if>
+        </do>
+      </foreach>
+    </if>
+
+    <if test="${not platform::is-windows()}">
+      <fail message="Target must be run on Windows"/>
+    </if>
+    <property name="tmpbuildfolder" value="build/win-installer"/>
+    <property name="nupkgfilename" value="${PackageName}.${VersionFull}.nupkg"/>
+    <copy file="src/${Project}/${Project}.nuspec" tofile="src/${Project}/${Project}.tmp.nuspec"/>
+    <xmlpoke
+      file="src/${Project}/${Project}.tmp.nuspec"
+      xpath="/package/metadata/version"
+      value="${VersionFull}" />
+    <exec program="nuget.exe" basedir="tools">
+      <arg value="pack"/>
+      <arg path="src/${Project}/${Project}.tmp.nuspec" />
+      <arg line="-OutputDirectory build"/>
+    </exec>
+    <delete file="src/${Project}/${Project}.tmp.nuspec"/>
+
+    <!-- Download the RELEASES file from the downloads server and the latest full  package -->
+    <!-- Squirrel will use this to build the delta file -->
+    <exec program="SyncReleases" basedir="tools/squirrel.windows/tools">
+    <arg value="--url"/>
+    <arg value="https://downloads.allauthapp.com/allauth-desktop/win-update-pkgs" />
+    <arg value="--releaseDir"/>
+    <arg path="build/win-installer" />
+    </exec>
+
+    <!-- We need to sign this now as squirrel will be copying it into the installer -->
+    <property name="fileToSign" value="tools/squirrel.windows/tools/Squirrel.exe"/>
+    <call target="sign-file"/>
+
+    <echo message="Generating squirrel.windows installer packages..."/>
+    <exec program="Squirrel" basedir="tools/squirrel.windows/tools">
+      <arg value="--releasify"/>
+      <arg path="build/${nupkgfilename}" />
+      <arg value="--releaseDir"/>
+      <arg path="build/win-installer" />
+    </exec>
+    <delete file="build/${nupkgfilename}" />
+
+    <!-- Sign the final installers -->
+    <property name="fileToSign" value="build/win-installer/Setup.exe"/>
+    <call target="sign-file"/>
+    <property name="fileToSign" value="build/win-installer/Setup.msi"/>
+    <call target="sign-file"/>
+
+    <!-- Move the installers and update packages to the dist dir -->
+    <property name="distdir" value="build/dist"/>
+    <property name="distdirupdates" value="${distdir}/win-update-pkgs"/>
+    <copy file="build/win-installer/Setup.exe" tofile="${distdir}/${VersionFull}/${PackageName}-Setup.exe" />
+    <move file="build/win-installer/Setup.exe" tofile="${distdir}/${PackageName}-Setup.exe" />
+    <!--<move file="build/win-installer/Setup.msi" tofile="${distdir}/${PackageName}-SetupEnterprise.msi" />-->
+    <move file="build/win-installer/RELEASES" tofile="${distdirupdates}/RELEASES"/>
+    <move todir="${distdirupdates}">
+      <fileset basedir="build/win-installer">
+        <include name="*-${VersionFull}-delta.nupkg" />
+        <include name="*-${VersionFull}-full.nupkg" />
+      </fileset>
+    </move>
+  </target>
+
+  <target name="allauth-testdevice-postbuild">
+    <property name="Project" value="AllAuth.Mobile.TestDevice"/>
+    <call target="common-postbuild" />
+    <if test="${platform::is-windows() and configuration=='Debug'}">
+      <!-- Windows needs the native binary in the application directory to run the application. -->
+      <!-- Unix should have it installed elsewhere -->
+      <copy file="lib/sqlite-native-win/SQLite.Interop-x86.dll" tofile="build/${configuration}/${Project}/sqlite3.dll" />
+      <copy file="lib/sqlite-native-win/SQLite.Interop-x86.dll" tofile="build/${configuration}/${Project}/x86/SQLite.Interop.dll" />
+    </if>
+  </target>
+
+</project>
