@@ -6,10 +6,10 @@ namespace AllAuth.Desktop.Forms.Dialogs
     {
         public bool Success { get; private set; }
 
-        private readonly string _importType;
+        private readonly Controller.ImportTypes _importType;
         private readonly string _importFilePath;
 
-        public ImportRunning(Controller controller, string importType, string importFilePath)
+        public ImportRunning(Controller controller, Controller.ImportTypes importType, string importFilePath)
         {
             InitializeComponent();
 

@@ -8,7 +8,7 @@ namespace AllAuth.Desktop.Forms.Dialogs
     {
         public bool Success { get; private set; }
 
-        private readonly Dictionary<string, string> _importTypes; 
+        private readonly Dictionary<Controller.ImportTypes, string> _importTypes; 
 
         public Import(Controller controller)
         {

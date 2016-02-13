@@ -1425,12 +1425,20 @@ namespace AllAuth.Desktop
             return _syncServers[serverAccountId];
         }
 
-        public static Dictionary<string, string> GetImportTypes()
+        public enum ImportTypes
         {
-            var list = new Dictionary<string, string>
+            LastPass,
+            Dashlane,
+            KeePass
+        }
+
+        public static Dictionary<ImportTypes, string> GetImportTypes()
+        {
+            var list = new Dictionary<ImportTypes, string>
             {
-                {"lastpass", "LastPass (CSV format)"},
-                {"dashlane", "Dashlane (CSV format)" }
+                {ImportTypes.KeePass, "KeePass" },
+                {ImportTypes.LastPass, "LastPass"},
+                {ImportTypes.Dashlane, "Dashlane" }
             };
             return list;
         }
@@ -1449,16 +1457,18 @@ namespace AllAuth.Desktop
             }
         }
 
-        public bool ImportProcess(string importType, string importFilePath)
+        public bool ImportProcess(ImportTypes importType, string importFilePath)
         {
             using (var fileStream = new FileStream(importFilePath, FileMode.Open))
             {
                 switch (importType)
                 {
-                    case "lastpass":
+                    case ImportTypes.LastPass:
                         return ImportLastPass(fileStream);
-                    case "dashlane":
+                    case ImportTypes.Dashlane:
                         return ImportDashlane(fileStream);
+                    case ImportTypes.KeePass:
+                        return ImportKeePass(fileStream);
                 }
             }
 
@@ -1577,6 +1587,62 @@ namespace AllAuth.Desktop
                     }
                     
                     var newEntryDataId = Model.DatabasesEntriesData.Create(newEntryData);
+                    
+                    var newEntryIdentifier = Guid.NewGuid().ToString();
+                    var newEntryId = Model.DatabasesEntries.Create(new DatabaseEntry
+                    {
+                        Identifier = newEntryIdentifier,
+                        DatabaseId = _activeDatabaseId,
+                        DatabaseGroupId = websitesGroupId,
+                        DatabaseEntryDataId = newEntryDataId
+                    });
+
+                    SetEntryAsModified(newEntryId, false);
+                }
+            }
+
+            UpdateDatabaseView();
+
+            return true;
+        }
+        
+        private bool ImportKeePass(Stream inputStream)
+        {
+            var websitesGroupId = CreateDatabaseGroup(_activeDatabaseId, "Websites");
+
+            using (var parser = new TextFieldParser(inputStream))
+            {
+                parser.TextFieldType = FieldType.Delimited;
+                parser.SetDelimiters(",");
+
+                var header = true;
+                while (!parser.EndOfData)
+                {
+                    var fields = parser.ReadFields();
+
+                    if (header)
+                    {
+                        header = false;
+                        continue;
+                    }
+
+                    if (fields == null || fields.Length != 5)
+                        continue;
+
+                    var name = fields[0];
+                    var username = fields[1];
+                    var password = fields[2];
+                    var url = fields[3];
+                    var notes = fields[4];
+
+                    var newEntryDataId = Model.DatabasesEntriesData.Create(new DatabaseEntryData
+                    {
+                        Name = name,
+                        Url = url,
+                        Username = username,
+                        Password = password,
+                        Notes = notes
+                    });
                     
                     var newEntryIdentifier = Guid.NewGuid().ToString();
                     var newEntryId = Model.DatabasesEntries.Create(new DatabaseEntry
