@@ -1436,9 +1436,9 @@ namespace AllAuth.Desktop
         {
             var list = new Dictionary<ImportTypes, string>
             {
+                {ImportTypes.Dashlane, "Dashlane" },
                 {ImportTypes.KeePass, "KeePass" },
                 {ImportTypes.LastPass, "LastPass"},
-                {ImportTypes.Dashlane, "Dashlane" }
             };
             return list;
         }
