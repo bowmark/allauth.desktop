@@ -141,6 +141,16 @@ namespace AllAuth.Desktop.Forms
 
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
+            var result = MessageBox.Show(
+                @"Are you sure you wish to logout of your account?
+
+You will require your recovery passphrase to log back in. Be sure you remember it before proceeding.",
+                @"Confirm logout", 
+                MessageBoxButtons.YesNo);
+
+            if (result != DialogResult.Yes)
+                return;
+
             using (var form = new LoggingOut(_controller))
             {
                 form.ShowDialog();
