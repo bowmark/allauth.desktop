@@ -634,7 +634,8 @@ namespace AllAuth.Desktop
             _syncManagement.Start();
 
             UpdateHeader();
-            GetServersFromServerManagement(recoveryPassword);
+
+            Task.Run(() => GetServersFromServerManagement(recoveryPassword));
 
             return true;
         }

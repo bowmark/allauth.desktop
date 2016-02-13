@@ -63,6 +63,7 @@ namespace AllAuth.Desktop
         private bool _processingSecretShares;
 
         private bool _databaseEntriesUploadRunning;
+        private bool _databaseEntriesDownloadRunning;
 
         /// <summary>
         /// Constructor.
@@ -899,113 +900,170 @@ namespace AllAuth.Desktop
 
         private void SyncDatabaseDownloadEntries(int databaseId)
         {
-            var database = GetDatabase(databaseId);
-            var request = new GetDatabaseEntries {LinkIdentifier = database.Identifier};
-
-            GetDatabaseEntries.ResponseParams response;
-            try
-            {
-                response = request.GetResponse(GetApiClient());
-                _requestErrors = 0;
-            }
-            catch (NetworkErrorException)
-            {
-                _requestErrors++;
+            if (_databaseEntriesUploadRunning || _databaseEntriesDownloadRunning)
                 return;
-            }
-            catch (RequestException)
-            {
-                return;
-            }
 
-            foreach (var serverEntry in response.Entries)
+            _databaseEntriesDownloadRunning = true;
+
+            // I think, but not entirely certain that this method needs a complete refactoring.....
+
+            Task.Run(() =>
             {
-                if (_stopSyncLoop)
+                var database = GetDatabase(databaseId);
+                var request = new GetDatabaseEntries { LinkIdentifier = database.Identifier };
+
+                GetDatabaseEntries.ResponseParams response;
+                try
+                {
+                    response = request.GetResponse(GetApiClient());
+                    _requestErrors = 0;
+                }
+                catch (NetworkErrorException)
+                {
+                    _requestErrors++;
+                    _databaseEntriesDownloadRunning = false;
                     return;
-
-                var localEntry = Model.DatabasesEntries.Find(new DatabaseEntry
+                }
+                catch (RequestException)
                 {
-                    DatabaseId = databaseId,
-                    Identifier = serverEntry.EntryIdentifier
-                }).FirstOrDefault();
-
-                if (serverEntry.Version < localEntry?.Version)
-                {
-                    // Server is out of date. Force an update at next possible opportunity.
-                    Model.DatabasesEntriesDataSync.Create(new DatabaseEntryDataSync {DatabaseEntryId = localEntry.Id});
-                    continue;
+                    _databaseEntriesDownloadRunning = false;
+                    return;
                 }
 
-                if (localEntry == null)
+                var serverEntriesToCreate = new List<GetDatabaseEntries.ResponseParamsItem>();
+
+                foreach (var serverEntry in response.Entries)
                 {
-                    var serverEntryData = DownloadDatabaseEntryData(database.Id, serverEntry.EntryIdentifier);
-                    if (serverEntryData == null)
-                        continue;
-
-                    var localGroup = Model.DatabasesGroups.Find(
-                        new DatabaseGroup
-                        {
-                            DatabaseId = databaseId,
-                            Identifier = serverEntry.GroupIdentifier
-                        }).FirstOrDefault();
-                    
-                    var entryDataId = Model.DatabasesEntriesData.Create(serverEntryData);
-
-                    var newEntryId = Model.DatabasesEntries.Create(new DatabaseEntry
+                    if (_stopSyncLoop)
                     {
-                        Identifier = serverEntry.EntryIdentifier,
+                        _databaseEntriesDownloadRunning = false;
+                        return;
+                    }
+
+                    var localEntry = Model.DatabasesEntries.Find(new DatabaseEntry
+                    {
                         DatabaseId = databaseId,
-                        DatabaseGroupId = localGroup?.Id ?? 0,
-                        DatabaseEntryDataId = entryDataId,
+                        Identifier = serverEntry.EntryIdentifier
+                    }).FirstOrDefault();
+
+                    if (serverEntry.Version < localEntry?.Version)
+                    {
+                        // Server is out of date. Force an update at next possible opportunity.
+                        Model.DatabasesEntriesDataSync.Create(new DatabaseEntryDataSync { DatabaseEntryId = localEntry.Id });
+                        continue;
+                    }
+
+                    if (localEntry == null)
+                    {
+                        serverEntriesToCreate.Add(serverEntry);
+                        continue;
+                    }
+
+                    if (IsDatabaseEntryModified(localEntry.Id))
+                    {
+                        // It's conflict time!
+                        // We're just going to bump the local version number to the same as the server version
+                        // then force an update. This will cause the server entry to be overwritten, 
+                        // but can be retrieved again through version history.
+                        Model.DatabasesEntries.Update(localEntry.Id, new DatabaseEntry { Version = serverEntry.Version });
+                        Model.DatabasesEntriesDataSync.Create(new DatabaseEntryDataSync { DatabaseEntryId = localEntry.Id });
+                        continue;
+                    }
+
+                    if (serverEntry.Version == localEntry.Version)
+                    {
+                        // No changes required, as there are no local modifications nor any server updates.
+                        continue;
+                    }
+
+                    // Update local to the latest server version.
+                    var downloadedServerEntryData = DownloadDatabaseEntryData(database.Id, serverEntry.EntryIdentifier);
+                    if (downloadedServerEntryData == null)
+                        continue;
+                    Model.DatabasesEntriesData.Update(localEntry.Id, downloadedServerEntryData);
+                    Model.DatabasesEntries.Update(localEntry.Id, new DatabaseEntry
+                    {
                         Version = serverEntry.Version
                     });
 
-                    var archiveId = Model.DatabasesEntriesData.Create(serverEntryData);
+                    var localArchiveId = Model.DatabasesEntriesData.Create(downloadedServerEntryData);
                     Model.DatabasesEntriesDataVersions.Create(new DatabaseEntryDataVersion
                     {
-                        DatabaseEntryId = newEntryId,
+                        DatabaseEntryId = localEntry.Id,
                         Version = serverEntry.Version,
-                        DatabaseEntryDataId = archiveId
+                        DatabaseEntryDataId = localArchiveId
                     });
-
-                    continue;
                 }
 
-                if (IsDatabaseEntryModified(localEntry.Id))
+                if (serverEntriesToCreate.Count == 0)
                 {
-                    // It's conflict time!
-                    // We're just going to bump the local version number to the same as the server version
-                    // then force an update. This will cause the server entry to be overwritten, 
-                    // but can be retrieved again through version history.
-                    Model.DatabasesEntries.Update(localEntry.Id, new DatabaseEntry {Version = serverEntry.Version});
-                    Model.DatabasesEntriesDataSync.Create(new DatabaseEntryDataSync {DatabaseEntryId = localEntry.Id});
-                    continue;
+                    _databaseEntriesDownloadRunning = false;
+                    return;
                 }
 
-                if (serverEntry.Version == localEntry.Version)
+                // Split entries to download into chunks of 50
+                var entriesToCreateSegments = serverEntriesToCreate.Select((x, i) => new { Index = i, Value = x })
+                    .GroupBy(x => x.Index / 50)
+                    .Select(x => x.Select(v => v.Value).ToList())
+                    .ToList();
+
+                var count = 0;
+                foreach (var entriesToCreateSegment in entriesToCreateSegments)
                 {
-                    // No changes required, as there are no local modifications nor any server updates.
-                    continue;
+                    var downloadDataRequest = new GetDatabaseEntryData
+                    {
+                        LinkIdentifier = database.Identifier,
+                        EntryIdentifiers = entriesToCreateSegment.Select(r => r.EntryIdentifier).ToList()
+                    };
+
+                    GetDatabaseEntryData.ResponseParams downloadDataResponse;
+                    try
+                    {
+                        downloadDataResponse = downloadDataRequest.GetResponse(GetApiClient());
+                    }
+                    catch (RequestException)
+                    {
+                        _databaseEntriesDownloadRunning = false;
+                        return;
+                    }
+
+                    foreach (var downloadEntryData in downloadDataResponse.EntriesData)
+                    {
+                        var serverEntry = serverEntriesToCreate[count];
+                        var serverEntryData = DecryptServerDatabaseEntryData(downloadEntryData.Data);
+
+                        count++;
+
+                        var localGroup = Model.DatabasesGroups.Find(
+                            new DatabaseGroup
+                            {
+                                DatabaseId = databaseId,
+                                Identifier = serverEntry.GroupIdentifier
+                            }).FirstOrDefault();
+
+                        var entryDataId = Model.DatabasesEntriesData.Create(serverEntryData);
+
+                        var newEntryId = Model.DatabasesEntries.Create(new DatabaseEntry
+                        {
+                            Identifier = serverEntry.EntryIdentifier,
+                            DatabaseId = databaseId,
+                            DatabaseGroupId = localGroup?.Id ?? 0,
+                            DatabaseEntryDataId = entryDataId,
+                            Version = serverEntry.Version
+                        });
+
+                        var archiveId = Model.DatabasesEntriesData.Create(serverEntryData);
+                        Model.DatabasesEntriesDataVersions.Create(new DatabaseEntryDataVersion
+                        {
+                            DatabaseEntryId = newEntryId,
+                            Version = serverEntry.Version,
+                            DatabaseEntryDataId = archiveId
+                        });
+                    }
                 }
 
-                // Update local to the latest server version.
-                var downloadedServerEntryData = DownloadDatabaseEntryData(database.Id, serverEntry.EntryIdentifier);
-                if (downloadedServerEntryData == null)
-                    continue;
-                Model.DatabasesEntriesData.Update(localEntry.Id, downloadedServerEntryData);
-                Model.DatabasesEntries.Update(localEntry.Id, new DatabaseEntry
-                {
-                    Version = serverEntry.Version
-                });
-
-                var localArchiveId = Model.DatabasesEntriesData.Create(downloadedServerEntryData);
-                Model.DatabasesEntriesDataVersions.Create(new DatabaseEntryDataVersion
-                {
-                    DatabaseEntryId = localEntry.Id,
-                    Version = serverEntry.Version,
-                    DatabaseEntryDataId = localArchiveId
-                });
-            }
+                _databaseEntriesDownloadRunning = false;
+            });
         }
 
         private bool IsDatabaseGroupModified(int groupId)
@@ -1091,13 +1149,13 @@ namespace AllAuth.Desktop
                 return null;
 
             var database = GetDatabase(databaseId);
-            var request = new GetDatabaseEntry
+            var request = new GetDatabaseEntryData
             {
                 LinkIdentifier = database.Identifier,
-                EntryIdentifier = entryIdentifier
+                EntryIdentifiers = new List<string> { entryIdentifier }
             };
 
-            GetDatabaseEntry.ResponseParams response;
+            GetDatabaseEntryData.ResponseParams response;
             try
             {
                 response = request.GetResponse(GetApiClient());
@@ -1108,12 +1166,26 @@ namespace AllAuth.Desktop
             }
 
             var decryptedData = EncryptedDataWithPassword.DecryptDataAsBytes(
-                response.Data, serverAccount.BackupEncryptionPassword);
+                response.EntriesData[0].Data, serverAccount.BackupEncryptionPassword);
             var dataJson = Util.DecompressData(decryptedData);
 
             var data = JsonConvert.DeserializeObject<DatabaseEntryData>(dataJson);
             data.RemoveId();
             
+            return data;
+        }
+
+        private DatabaseEntryData DecryptServerDatabaseEntryData(string serverEntryData)
+        {
+            var serverAccount = GetServerAccount();
+
+            var decryptedData = EncryptedDataWithPassword.DecryptDataAsBytes(
+                serverEntryData, serverAccount.BackupEncryptionPassword);
+            var dataJson = Util.DecompressData(decryptedData);
+
+            var data = JsonConvert.DeserializeObject<DatabaseEntryData>(dataJson);
+            data.RemoveId();
+
             return data;
         }
 
