@@ -1429,13 +1429,15 @@ namespace AllAuth.Desktop
         {
             LastPass,
             Dashlane,
-            KeePass
+            KeePass,
+            OnePassword
         }
 
         public static Dictionary<ImportTypes, string> GetImportTypes()
         {
             var list = new Dictionary<ImportTypes, string>
             {
+                {ImportTypes.OnePassword, "1Password" },
                 {ImportTypes.Dashlane, "Dashlane" },
                 {ImportTypes.KeePass, "KeePass" },
                 {ImportTypes.LastPass, "LastPass"},
@@ -1469,6 +1471,8 @@ namespace AllAuth.Desktop
                         return ImportDashlane(fileStream);
                     case ImportTypes.KeePass:
                         return ImportKeePass(fileStream);
+                    case ImportTypes.OnePassword:
+                        return Import1Password(fileStream);
                 }
             }
 
@@ -1549,15 +1553,11 @@ namespace AllAuth.Desktop
                 while (!parser.EndOfData)
                 {
                     var fields = parser.ReadFields();
-
-                    if (header)
-                    {
-                        header = false;
-                        continue;
-                    }
-
+                    
                     if (fields == null)
                         continue;
+
+                    // No header for dashlane
 
                     var newEntryData = new DatabaseEntryData
                     {
@@ -1662,6 +1662,61 @@ namespace AllAuth.Desktop
             return true;
         }
 
+        private bool Import1Password(Stream inputStream)
+        {
+            var websitesGroupId = CreateDatabaseGroup(_activeDatabaseId, "Websites");
+
+            using (var parser = new TextFieldParser(inputStream))
+            {
+                parser.TextFieldType = FieldType.Delimited;
+                parser.SetDelimiters(",");
+
+                var header = true;
+                while (!parser.EndOfData)
+                {
+                    var fields = parser.ReadFields();
+
+                    if (header)
+                    {
+                        header = false;
+                        continue;
+                    }
+
+                    if (fields == null || fields.Length != 5)
+                        continue;
+
+                    var name = fields[0];
+                    var notes = fields[1];
+                    var username = fields[2];
+                    var password = fields[3];
+                    var url = fields[4];
+
+                    var newEntryDataId = Model.DatabasesEntriesData.Create(new DatabaseEntryData
+                    {
+                        Name = name,
+                        Url = url,
+                        Username = username,
+                        Password = password,
+                        Notes = notes
+                    });
+
+                    var newEntryIdentifier = Guid.NewGuid().ToString();
+                    var newEntryId = Model.DatabasesEntries.Create(new DatabaseEntry
+                    {
+                        Identifier = newEntryIdentifier,
+                        DatabaseId = _activeDatabaseId,
+                        DatabaseGroupId = websitesGroupId,
+                        DatabaseEntryDataId = newEntryDataId
+                    });
+
+                    SetEntryAsModified(newEntryId, false);
+                }
+            }
+
+            UpdateDatabaseView();
+
+            return true;
+        }
         private int CreateDatabaseGroup(int databaseId, string name)
         {
             var groups = Model.DatabasesGroups.Find(new DatabaseGroup());
