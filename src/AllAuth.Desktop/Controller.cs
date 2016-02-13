@@ -1349,7 +1349,7 @@ namespace AllAuth.Desktop
 
         public void RecoverSecondDevice(int serverAccountId)
         {
-            using (var form = new RecoverSecondDeviceConfirm(this))
+            using (var form = new RecoverSecondDeviceConfirm(this, serverAccountId))
             {
                 form.ShowDialog();
                 if (!form.Success)
@@ -1359,10 +1359,9 @@ namespace AllAuth.Desktop
             LinkSecondDevice(serverAccountId);
         }
         
-        public async Task<bool> RecoverSecondDeviceConfirmed()
+        public async Task<bool> RecoverSecondDeviceConfirmed(int serverAccountId)
         {
-            var database = Model.Databases.Get(_activeDatabaseId);
-            var apiClient = GetApiClient(database.ServerAccountId);
+            var apiClient = GetApiClient(serverAccountId);
             var request = new ResetSecondDevice();
 
             try
@@ -1379,7 +1378,7 @@ namespace AllAuth.Desktop
                 return false;
             }
 
-            Model.ServerAccounts.Update(database.ServerAccountId, new ServerAccount {LinkedDeviceSetup = false});
+            Model.ServerAccounts.Update(serverAccountId, new ServerAccount {LinkedDeviceSetup = false});
 
             _mainForm.Invoke((MethodInvoker) ShowHomePage);
 
@@ -1430,7 +1429,8 @@ namespace AllAuth.Desktop
         {
             var list = new Dictionary<string, string>
             {
-                {"lastpass", "LastPass"}
+                {"lastpass", "LastPass (CSV format)"},
+                {"dashlane", "Dashlane (CSV format)" }
             };
             return list;
         }
@@ -1457,37 +1457,14 @@ namespace AllAuth.Desktop
                 {
                     case "lastpass":
                         return ImportLastPass(fileStream);
+                    case "dashlane":
+                        return ImportDashlane(fileStream);
                 }
             }
 
             return false;
         }
         
-        private int CreateDatabaseGroup(int databaseId, string name)
-        {
-            var groups = Model.DatabasesGroups.Find(new DatabaseGroup());
-            foreach (var group in groups)
-            {
-                var groupMeta = Model.DatabasesGroupsMeta.Get(group.DatabaseGroupMetaId);
-                if (groupMeta.Name.Equals(name, StringComparison.OrdinalIgnoreCase))
-                {
-                    return group.Id;
-                }
-            }
-
-            var newGroupIdentifier = Guid.NewGuid().ToString();
-            var newGroupMetaId = Model.DatabasesGroupsMeta.Create(new DatabaseGroupMeta { Name = name });
-            var newGroupId = Model.DatabasesGroups.Create(new DatabaseGroup
-            {
-                DatabaseId = databaseId,
-                Identifier = newGroupIdentifier,
-                DatabaseGroupMetaId = newGroupMetaId
-            });
-            SetGroupAsModified(newGroupId);
-
-            return newGroupId;
-        }
-
         private bool ImportLastPass(Stream inputStream)
         {
             var websitesGroupId = CreateDatabaseGroup(_activeDatabaseId, "Websites");
@@ -1547,6 +1524,101 @@ namespace AllAuth.Desktop
             UpdateDatabaseView();
 
             return true;
+        }
+
+        private bool ImportDashlane(Stream inputStream)
+        {
+            var websitesGroupId = CreateDatabaseGroup(_activeDatabaseId, "Websites");
+
+            using (var parser = new TextFieldParser(inputStream))
+            {
+                parser.TextFieldType = FieldType.Delimited;
+                parser.SetDelimiters(",");
+
+                var header = true;
+                while (!parser.EndOfData)
+                {
+                    var fields = parser.ReadFields();
+
+                    if (header)
+                    {
+                        header = false;
+                        continue;
+                    }
+
+                    if (fields == null)
+                        continue;
+
+                    var newEntryData = new DatabaseEntryData
+                    {
+                        Name = !string.IsNullOrEmpty(fields[0]) ? fields[0] : fields[1],
+                        Url = fields[1],
+                        Username = fields[2]
+                    };
+
+                    if (fields.Length == 5)
+                    {
+                        newEntryData.Password = fields[3];
+                        newEntryData.Notes = fields[4];
+                    }
+                    else if (fields.Length == 6)
+                    {
+                        // Slow clap for Dashlane...
+                        // If the entry contains a secondary login field, the column layout changes.
+                        newEntryData.Password = fields[4];
+                        newEntryData.Notes = fields[5];
+                        if (!string.IsNullOrEmpty(fields[3]))
+                            newEntryData.Notes = "Secondary login: " + fields[3] + "\r\n\r\n" + newEntryData.Notes;
+                    }
+                    else
+                    {
+                        // Fuck knows, they've cocked up the CSV format as it is.
+                        continue;
+                    }
+                    
+                    var newEntryDataId = Model.DatabasesEntriesData.Create(newEntryData);
+                    
+                    var newEntryIdentifier = Guid.NewGuid().ToString();
+                    var newEntryId = Model.DatabasesEntries.Create(new DatabaseEntry
+                    {
+                        Identifier = newEntryIdentifier,
+                        DatabaseId = _activeDatabaseId,
+                        DatabaseGroupId = websitesGroupId,
+                        DatabaseEntryDataId = newEntryDataId
+                    });
+
+                    SetEntryAsModified(newEntryId, false);
+                }
+            }
+
+            UpdateDatabaseView();
+
+            return true;
+        }
+
+        private int CreateDatabaseGroup(int databaseId, string name)
+        {
+            var groups = Model.DatabasesGroups.Find(new DatabaseGroup());
+            foreach (var group in groups)
+            {
+                var groupMeta = Model.DatabasesGroupsMeta.Get(group.DatabaseGroupMetaId);
+                if (groupMeta.Name.Equals(name, StringComparison.OrdinalIgnoreCase))
+                {
+                    return group.Id;
+                }
+            }
+
+            var newGroupIdentifier = Guid.NewGuid().ToString();
+            var newGroupMetaId = Model.DatabasesGroupsMeta.Create(new DatabaseGroupMeta { Name = name });
+            var newGroupId = Model.DatabasesGroups.Create(new DatabaseGroup
+            {
+                DatabaseId = databaseId,
+                Identifier = newGroupIdentifier,
+                DatabaseGroupMetaId = newGroupMetaId
+            });
+            SetGroupAsModified(newGroupId);
+
+            return newGroupId;
         }
     }
 }

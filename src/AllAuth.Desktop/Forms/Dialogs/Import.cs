@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using AllAuth.Desktop.Forms.Dialogs;
 
-namespace AllAuth.Desktop.Forms
+namespace AllAuth.Desktop.Forms.Dialogs
 {
     internal partial class Import : Templates.FormDialogWithTitle
     {

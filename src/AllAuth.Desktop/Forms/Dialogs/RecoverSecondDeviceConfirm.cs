@@ -8,10 +8,13 @@ namespace AllAuth.Desktop.Forms.Dialogs
     {
         public bool Success { get; private set; }
 
-        public RecoverSecondDeviceConfirm(Controller controller)
+        private int _serverAccountId;
+
+        public RecoverSecondDeviceConfirm(Controller controller, int serverAccountId)
         {
             InitializeComponent();
             Controller = controller;
+            _serverAccountId = serverAccountId;
         }
 
         private async void btnStartRecovery_Click(object sender, System.EventArgs e)
@@ -29,7 +32,7 @@ namespace AllAuth.Desktop.Forms.Dialogs
             panelButtons.Controls.Clear();
             panelButtons.Controls.Add(label);
 
-            Success = await Controller.RecoverSecondDeviceConfirmed();
+            Success = await Controller.RecoverSecondDeviceConfirmed(_serverAccountId);
             
             Close();
         }

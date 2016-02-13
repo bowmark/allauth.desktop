@@ -1,4 +1,4 @@
-﻿namespace AllAuth.Desktop.Forms
+﻿namespace AllAuth.Desktop.Forms.Dialogs
 {
     partial class Import
     {
