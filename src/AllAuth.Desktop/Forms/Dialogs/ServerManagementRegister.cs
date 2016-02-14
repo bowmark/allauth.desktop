@@ -27,7 +27,7 @@ namespace AllAuth.Desktop.Forms.Dialogs
 
         private void btnRegister_Click(object sender, System.EventArgs e)
         {
-            var recoveryPassphrase = txtRecoveryPassphraseFirst.Text.Trim();
+            var recoveryPassphrase = txtRecoveryPassphraseFirst.Text;
             if (string.IsNullOrEmpty(recoveryPassphrase))
                 return;
 

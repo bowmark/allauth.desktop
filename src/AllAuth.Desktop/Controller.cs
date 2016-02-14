@@ -8,7 +8,6 @@ using AllAuth.Desktop.App;
 using AllAuth.Desktop.Common.Models;
 using AllAuth.Desktop.Forms;
 using AllAuth.Desktop.Forms.Dialogs;
-using AllAuth.Lib;
 using AllAuth.Lib.APIs;
 using AllAuth.Lib.Crypto;
 using AllAuth.Lib.ManagementAPI.Requests.Authenticated;
@@ -18,6 +17,7 @@ using Microsoft.VisualBasic.FileIO;
 using ApiClient = AllAuth.Lib.ManagementAPI.ApiClient;
 using Logout = AllAuth.Lib.ServerAPI.Requests.Authenticated.Logout;
 using ServerAPI = AllAuth.Lib.ServerAPI;
+using ManagementAPI = AllAuth.Lib.ManagementAPI;
 
 namespace AllAuth.Desktop
 {
@@ -283,7 +283,7 @@ namespace AllAuth.Desktop
                 return false;*/
 
             var newDatabaseMetaId = Model.DatabasesMeta.Create(new DatabaseMeta {Name = dbName});
-            var newDatabaseId = Model.Databases.Create(new AllAuth.Desktop.Common.Models.Database
+            var newDatabaseId = Model.Databases.Create(new Database
             {
                 Identifier = response.DatabaseIdentifier,
                 ServerAccountId = serverAccountId,
@@ -403,25 +403,31 @@ namespace AllAuth.Desktop
             return true;
         }
 
-        private void SetDatabaseAsModified(int databaseId)
+        private void SetDatabaseAsModified(int databaseId, bool restartSyncLoop = true)
         {
             Model.DatabasesMetaSync.Create(new DatabaseMetaSync { DatabaseId = databaseId });
 
-            var database = Model.Databases.Get(databaseId);
-            if (!_syncServers.ContainsKey(database.ServerAccountId))
-                return;
-            _syncServers[database.ServerAccountId].RestartSyncLoop();
+            if (restartSyncLoop)
+            {
+                var database = Model.Databases.Get(databaseId);
+                if (!_syncServers.ContainsKey(database.ServerAccountId))
+                    return;
+                _syncServers[database.ServerAccountId].RestartSyncLoop();
+            }
         }
 
-        private void SetGroupAsModified(int groupId)
+        private void SetGroupAsModified(int groupId, bool restartSyncLoop = true)
         {
             Model.DatabasesGroupsMetaSync.Create(new DatabaseGroupMetaSync { DatabaseGroupId = groupId });
 
-            var group = Model.DatabasesGroups.Get(groupId);
-            var database = Model.Databases.Get(group.DatabaseId);
-            if (!_syncServers.ContainsKey(database.ServerAccountId))
-                return;
-            _syncServers[database.ServerAccountId].RestartSyncLoop();
+            if (restartSyncLoop)
+            {
+                var group = Model.DatabasesGroups.Get(groupId);
+                var database = Model.Databases.Get(group.DatabaseId);
+                if (!_syncServers.ContainsKey(database.ServerAccountId))
+                    return;
+                _syncServers[database.ServerAccountId].RestartSyncLoop();
+            }
         }
         
         public void SetEntryAsModified(int entryId, bool restartSyncLoop = true)
@@ -741,7 +747,7 @@ namespace AllAuth.Desktop
             
             try
             {
-                await new Lib.ManagementAPI.Requests.Authenticated.Logout().GetResponseAsync(apiClient);
+                await new ManagementAPI.Requests.Authenticated.Logout().GetResponseAsync(apiClient);
             }
             catch (RequestException)
             {
@@ -1106,8 +1112,8 @@ namespace AllAuth.Desktop
             var newServerAccountId = Model.ServerAccounts.Create(newServer);
             newServer.Id = newServerAccountId;
 
-            var serverApiClientAuthenticated = new ServerAPI.ApiClient(server.HttpsEnabled,
-                server.Hostname, server.Port, server.ApiVersion, registerResponse.ApiKey, newKeypair.PrivatePem);
+            //var serverApiClientAuthenticated = new ServerAPI.ApiClient(server.HttpsEnabled,
+            //    server.Hostname, server.Port, server.ApiVersion, registerResponse.ApiKey, newKeypair.PrivatePem);
 
             /*var deviceRegisterRequest = new InitiateDeviceLogin();
             InitiateDeviceLogin.ResponseParams deviceRegisterResponse;
@@ -1190,19 +1196,19 @@ namespace AllAuth.Desktop
 //            });
 
 
-            ServerAPI.GetUserResponse userInfoResponse;
-            try
-            {
-                userInfoResponse = serverApiClientAuthenticated.GetUser(new ServerAPI.GetUserRequest());
-            }
-            catch (RequestException e)
-            {
-                if (Program.AppEnvDebug)
-                    throw new Exception("Unexpected error getting user info", e);
-
-                MessageBox.Show(@"There was an error retrieving server information.");
-                return;
-            }
+//            ServerAPI.GetUserResponse userInfoResponse;
+//            try
+//            {
+//                userInfoResponse = serverApiClientAuthenticated.GetUser(new ServerAPI.GetUserRequest());
+//            }
+//            catch (RequestException e)
+//            {
+//                if (Program.AppEnvDebug)
+//                    throw new Exception("Unexpected error getting user info", e);
+//
+//                MessageBox.Show(@"There was an error retrieving server information.");
+//                return;
+//            }
 
             // We can't do this yet. The server sends this to the second device as it is right now,
             // which hasn't been set.
@@ -1448,12 +1454,7 @@ namespace AllAuth.Desktop
 
         public void ImportStart()
         {
-            if (!_activeDatabase || _activeDatabaseId == 0)
-            {
-                MessageBox.Show(@"Please open the database you would like to import into before running the import.");
-                return;
-            }
-
+            
             using (var form = new Import(this))
             {
                 form.ShowDialog();
@@ -1462,22 +1463,35 @@ namespace AllAuth.Desktop
 
         public bool ImportProcess(ImportTypes importType, string importFilePath)
         {
+            if (!_activeDatabase || _activeDatabaseId == 0)
+                return false;
+
+            var database = Model.Databases.Get(_activeDatabaseId);
+
+            var importSuccess = false;
             using (var fileStream = new FileStream(importFilePath, FileMode.Open))
             {
                 switch (importType)
                 {
                     case ImportTypes.LastPass:
-                        return ImportLastPass(fileStream);
+                        importSuccess = ImportLastPass(fileStream);
+                        break;
                     case ImportTypes.Dashlane:
-                        return ImportDashlane(fileStream);
+                        importSuccess = ImportDashlane(fileStream);
+                        break;
                     case ImportTypes.KeePass:
-                        return ImportKeePass(fileStream);
+                        importSuccess = ImportKeePass(fileStream);
+                        break;
                     case ImportTypes.OnePassword:
-                        return Import1Password(fileStream);
+                        importSuccess = Import1Password(fileStream);
+                        break;
                 }
             }
 
-            return false;
+            UpdateDatabaseView();
+            GetSyncServerInstance(database.ServerAccountId).RestartSyncLoop();
+
+            return importSuccess;
         }
         
         private bool ImportLastPass(Stream inputStream)
@@ -1510,7 +1524,6 @@ namespace AllAuth.Desktop
                     var extra = fields[3];
                     var name = fields[4];
                     var grouping = fields[5];
-                    var fav = fields[6];
 
                     var newEntryDataId = Model.DatabasesEntriesData.Create(new DatabaseEntryData
                     {
@@ -1535,9 +1548,7 @@ namespace AllAuth.Desktop
                     SetEntryAsModified(newEntryId, false);
                 }
             }
-
-            UpdateDatabaseView();
-
+            
             return true;
         }
 
@@ -1602,8 +1613,6 @@ namespace AllAuth.Desktop
                 }
             }
 
-            UpdateDatabaseView();
-
             return true;
         }
         
@@ -1657,8 +1666,6 @@ namespace AllAuth.Desktop
                     SetEntryAsModified(newEntryId, false);
                 }
             }
-
-            UpdateDatabaseView();
 
             return true;
         }
@@ -1714,10 +1721,9 @@ namespace AllAuth.Desktop
                 }
             }
 
-            UpdateDatabaseView();
-
             return true;
         }
+
         private int CreateDatabaseGroup(int databaseId, string name)
         {
             var groups = Model.DatabasesGroups.Find(new DatabaseGroup());
@@ -1741,6 +1747,106 @@ namespace AllAuth.Desktop
             SetGroupAsModified(newGroupId);
 
             return newGroupId;
+        }
+
+        public bool ChangeRecoveryPassphrase(string currentPassphrase, string newPassphrase)
+        {
+            var managementChangeSuccess = ChangeRecoveryPassphraseManagement(currentPassphrase, newPassphrase);
+
+            var allServersChangeSuccess = true;
+            foreach (var server in _syncServers)
+            {
+                var serverAccount = Model.ServerAccounts.Get(server.Key);
+
+                server.Value.Stop();
+                
+                var serverChangeSuccess = ChangeRecoveryPassphraseServer(server.Key, currentPassphrase, newPassphrase);
+
+                if (!serverChangeSuccess)
+                {
+                    allServersChangeSuccess = false;
+                    server.Value.Start();
+                    continue;
+                }
+
+                Model.ServerAccounts.Update(server.Key, new ServerAccount
+                {
+                    BackupEncryptionPassword = HashUtil.GenerateDatabaseBackupPasswordHash(
+                        serverAccount.EmailAddress, newPassphrase)
+                });
+
+                var databases = Model.Databases.Find(new Database());
+                foreach (var database in databases)
+                    SetDatabaseAsModified(database.Id, false);
+
+                var databaseGroups = Model.DatabasesGroups.Find(new DatabaseGroup());
+                foreach (var databaseGroup in databaseGroups)
+                    SetGroupAsModified(databaseGroup.Id, false);
+
+                var databaseEntries = Model.DatabasesEntries.Find(new DatabaseEntry());
+                foreach (var databaseEntry in databaseEntries)
+                    SetEntryAsModified(databaseEntry.Id, false);
+
+                server.Value.Start();
+            }
+
+            return managementChangeSuccess && allServersChangeSuccess;
+        }
+
+        private bool ChangeRecoveryPassphraseManagement(string currentPassphrase, string newPassphrase)
+        {
+            var managementAccount = GetServerManagementAccount();
+
+            var currentPasswordHash = HashUtil.GenerateServerManagerRecoveryPasswordHash(
+                managementAccount.EmailAddress, currentPassphrase);
+
+            var newPasswordHash = HashUtil.GenerateServerManagerRecoveryPasswordHash(
+                managementAccount.EmailAddress, newPassphrase);
+
+            var managementRequest = new ManagementAPI.Requests.Authenticated.UpdateRecoveryPassword
+            {
+                CurrentRecoveryPasswordClientHash = currentPasswordHash,
+                NewRecoveryPasswordClientHash = newPasswordHash
+            };
+
+            try
+            {
+                managementRequest.GetResponse(GetApiClientForServerManagement());
+            }
+            catch (RequestException)
+            {
+                return false;
+            }
+            
+            return true;
+        }
+
+        private bool ChangeRecoveryPassphraseServer(int serverAccountId, string currentPassphrase, string newPassphrase)
+        {
+            var managementAccount = GetServerManagementAccount();
+
+            var currentPasswordHash = HashUtil.GenerateServerRecoveryPasswordHash(
+                managementAccount.EmailAddress, currentPassphrase);
+
+            var newPasswordHash = HashUtil.GenerateServerRecoveryPasswordHash(
+                managementAccount.EmailAddress, newPassphrase);
+
+            var request = new UpdateDatabaseRecoveryInfo
+            {
+                CurrentRecoveryPasswordClientHash = currentPasswordHash,
+                NewRecoveryPasswordClientHash = newPasswordHash
+            };
+
+            try
+            {
+                request.GetResponse(GetApiClient(serverAccountId));
+            }
+            catch (RequestException)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

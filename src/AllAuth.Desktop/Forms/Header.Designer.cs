@@ -40,6 +40,7 @@
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.helpAndSupportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.abountToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -47,7 +48,8 @@
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lblOptionsMenu = new System.Windows.Forms.Label();
             this.lblLogo = new System.Windows.Forms.Label();
-            this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.changeRecoveryPassphraseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.panelTabsOuterContainer.SuspendLayout();
             this.panelServerManagementInfo.SuspendLayout();
             this.panelDatabaseInfo.SuspendLayout();
@@ -152,10 +154,19 @@
             // toolsToolStripMenuItem
             // 
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.importToolStripMenuItem});
+            this.importToolStripMenuItem,
+            this.toolStripSeparator4,
+            this.changeRecoveryPassphraseToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
             this.toolsToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
             this.toolsToolStripMenuItem.Text = "Tools";
+            // 
+            // importToolStripMenuItem
+            // 
+            this.importToolStripMenuItem.Name = "importToolStripMenuItem";
+            this.importToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
+            this.importToolStripMenuItem.Text = "Import";
+            this.importToolStripMenuItem.Click += new System.EventHandler(this.importToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
@@ -215,12 +226,17 @@
             this.lblLogo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.lblLogo.Click += new System.EventHandler(this.lblLogo_Click);
             // 
-            // importToolStripMenuItem
+            // changeRecoveryPassphraseToolStripMenuItem
             // 
-            this.importToolStripMenuItem.Name = "importToolStripMenuItem";
-            this.importToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.importToolStripMenuItem.Text = "Import";
-            this.importToolStripMenuItem.Click += new System.EventHandler(this.importToolStripMenuItem_Click);
+            this.changeRecoveryPassphraseToolStripMenuItem.Name = "changeRecoveryPassphraseToolStripMenuItem";
+            this.changeRecoveryPassphraseToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
+            this.changeRecoveryPassphraseToolStripMenuItem.Text = "Change recovery passphrase";
+            this.changeRecoveryPassphraseToolStripMenuItem.Click += new System.EventHandler(this.changeRecoveryPassphraseToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(221, 6);
             // 
             // Header
             // 
@@ -262,5 +278,7 @@
         private System.Windows.Forms.ToolStripMenuItem helpAndSupportToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem importToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.ToolStripMenuItem changeRecoveryPassphraseToolStripMenuItem;
     }
 }

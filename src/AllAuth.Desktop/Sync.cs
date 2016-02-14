@@ -81,8 +81,14 @@ namespace AllAuth.Desktop
         /// </summary>
         public void Start()
         {
+            Logger.Info("Starting the sync loop thread");
+            
+            _stopSyncLoop = false;
+
             var thread = new Thread(Run);
             thread.Start();
+
+            Logger.Info("Sync loop thread started");
         }
 
         /// <summary>
@@ -157,8 +163,8 @@ namespace AllAuth.Desktop
                 else if (_requestErrors > 0)
                     sleepTime = _requestErrors*2;
 
-                Logger.Verbose(
-                    "Sync loop iteration completed. Sleeping for " + sleepTime + " secs");
+                Logger.Verbose("Sync loop iteration completed. Sleeping for " + sleepTime + " secs");
+
                 _syncLoopWait.WaitOne(sleepTime * 1000);
             }
             
@@ -280,6 +286,9 @@ namespace AllAuth.Desktop
             // Add server databases for backup
             foreach (var databaseLink in userInfo.Links)
             {
+                if (_stopSyncLoop)
+                    break;
+
                 var database = GetDatabase(databaseLink.Identifier);
 
                 if (database == null)

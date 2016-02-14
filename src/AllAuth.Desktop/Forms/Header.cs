@@ -166,5 +166,13 @@ You will require your recovery passphrase to log back in. Be sure you remember i
         {
             _controller.ImportStart();
         }
+
+        private void changeRecoveryPassphraseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (var form = new ChangeRecoveryPassphrase(_controller))
+            {
+                form.ShowDialog();
+            }
+        }
     }
 }
