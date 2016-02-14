@@ -1,8 +1,8 @@
 # AllAuth.Desktop
 
-This is the desktop application for AllAuth, a personal login manager. Visit https://AllAuthApp.com to learn more.
+This is the desktop application for AllAuth, a personal login manager. Visit [AllAuthApp.com](https://allauthapp.com) to learn more.
 
-See https://github.com/bowmark/allauth.lib for the shared components such as the crypto library.
+See https://github.com/bowmark/allauth.lib for shared components such as the crypto library.
 
 ## Security
 
