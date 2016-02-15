@@ -626,6 +626,7 @@ namespace AllAuth.Desktop
                 return;
 
             var serverAccount = GetServerAccount();
+            var linkedClientCryptoKey = Model.CryptoKeys.Get(serverAccount.LinkedDeviceCryptoKeyId);
             var database = Model.Databases.Get(databaseId);
 
             var entriesToBeDeleted = Model.DatabasesEntries.Find(new DatabaseEntry {ToBeDeleted = true}).ToList();
@@ -634,14 +635,25 @@ namespace AllAuth.Desktop
                 if (_stopSyncLoop || _processMessagesOnly)
                     return;
 
+                var deleteRequest = new DeleteDatabaseEntry
+                {
+                    LinkIdentifier = database.Identifier,
+                    EntryIdentifier = entryToBeDeleted.Identifier
+                };
+
+                var deleteOnDeviceMessageContent = new DeviceToDeviceMessages.DeleteEntry
+                {
+                    LinkIdentifier = database.Identifier,
+                    EntryIdentifier = entryToBeDeleted.Identifier
+                };
+                var deleteOnDeviceMessageRequest = new SendLinkedDeviceMessage();
+                deleteOnDeviceMessageRequest.SetMessage(deleteOnDeviceMessageContent, linkedClientCryptoKey.PublicKeyPem);
+
                 try
                 {
-                    var deleteRequest = new DeleteDatabaseEntry
-                    {
-                        LinkIdentifier = database.Identifier,
-                        EntryIdentifier = entryToBeDeleted.Identifier
-                    };
                     deleteRequest.GetResponse(GetApiClient());
+                    deleteOnDeviceMessageRequest.GetResponse(GetApiClient());
+
                     _requestErrors = 0;
                 }
                 catch (NetworkErrorException)

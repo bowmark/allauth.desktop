@@ -10,6 +10,7 @@ namespace AllAuth.Desktop.Forms
     internal partial class DatabaseView : Templates.BaseControl
     {
         private readonly Controller _controller;
+        private readonly int _serverAccountId;
         private readonly int _databaseId;
 
         private bool _activeGroupSet;
