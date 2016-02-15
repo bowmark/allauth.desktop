@@ -240,7 +240,7 @@ namespace AllAuth.Desktop
         private bool NewDatabase(string dbName, int serverAccountId)
         {
             var apiClient = GetApiClient(serverAccountId);
-            var request = new CreateDatabase {Name = dbName};
+            var request = new CreateDatabase();
 
             CreateDatabase.ResponseParams response;
             try
