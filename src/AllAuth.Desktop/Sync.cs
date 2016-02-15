@@ -1416,6 +1416,8 @@ namespace AllAuth.Desktop
                 } while (moreToProcess);
 
                 _processingSecretShares = false;
+
+                RestartSyncLoop();
             });
         }
 
