@@ -1454,7 +1454,9 @@ namespace AllAuth.Desktop
 
         public void ImportStart()
         {
-            
+            if (!_activeDatabase || _activeDatabaseId == 0)
+                return;
+
             using (var form = new Import(this))
             {
                 form.ShowDialog();
