@@ -54,7 +54,7 @@ namespace AllAuth.Desktop.Forms
             }
             lblInfo.Text = 
                 @"Your trial has " + daysRemaining + @" day"+ (daysRemaining > 1 ? "s" : "") +
-                @" remaining. Click here to purchase a subscription for only $3.99/month.";
+                @" remaining. Click here to purchase AllAuth for only $15 per year.";
         }
     }
 }
