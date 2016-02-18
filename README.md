@@ -44,7 +44,7 @@ or you can open the `AllAuth.Desktop.sln` solution file in Visual Studio 2015 wh
 
 ## Platforms
 
-The desktop app is designed to run on Windows, Mac OSX and Linux, therefore all code and dependancies must be cross-platform compatible.
+The desktop app is designed to run on Windows, Mac OSX and Linux, therefore all code and dependancies must be Mono compatible.
 
 The lib is also used in the mobile applications, so all lib code must be portable.
 
