@@ -183,6 +183,9 @@
 
   <target name="allauth-prebuild" depends="common-prebuild">
     <!-- Uses the same version for all subprojects. -->
+    <exec program="build.bat" workingdir="../Lib">
+      <arg value="allauth.lib-prebuild" />
+    </exec>
     <property name="Project" value="AllAuth.Desktop"/>
     <call target="get-version" />
     <call target="set-assembly-version" />
