@@ -1,5 +1,7 @@
 # AllAuth.Desktop
 
+[![Build status](https://ci.appveyor.com/api/projects/status/iy987c5b8mvpso9a?svg=true)](https://ci.appveyor.com/project/MrLunar/allauth-desktop)
+
 This is the desktop application for AllAuth, a personal login manager. Visit [AllAuthApp.com](https://allauthapp.com) to learn more.
 
 See https://github.com/bowmark/allauth.lib for shared components such as the crypto library.
