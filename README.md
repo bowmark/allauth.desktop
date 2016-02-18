@@ -14,20 +14,29 @@ Please contact security@allauthapp.com to report any security vulnerabilities ([
 
 - Git
 - Visual Studio 2015 (Community edition is fine)
-- References to the [AllAuth.Lib](https://github.com/bowmark/allauth.lib) project.
 
 ## Building
+
+First, setup the project (the following commands work in both CMD and bash):
+
+```shell
+  mkdir AllAuth
+  cd AllAuth
+  git clone https://github.com/bowmark/allauth.lib.git Lib
+  git clone https://github.com/bowmark/allauth.desktop.git Desktop
+  cd Desktop
+```
 
 You can build the project via the Windows command prompt:
 
 ```shell
-  build
+  build debug
 ```
 
 or a bash shell on Windows (e.g. MinGW, Git Bash):
 
 ```shell
-  ./build.sh
+  ./build.sh debug
 ```
 
 or you can open the `AllAuth.Desktop.sln` solution file in Visual Studio 2015 where you can build and debug the project.
