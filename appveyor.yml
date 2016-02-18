@@ -1,0 +1,11 @@
+version: 1.0.0.{build}
+os: Visual Studio 2015
+shallow_clone: true
+cache:
+  - packages -> **\packages.config
+
+build_script: .\build.bat clean release pkgWin
+#test_script: .\build.bat releaseTest
+
+artifacts:
+  - path: build\dist\**

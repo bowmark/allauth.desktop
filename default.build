@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<project name="AllAuth.Desktop" default="allauth">
+<project name="AllAuth.Desktop">
 
   <!-- Required scripts script -->
   <script language="C#" prefix="sign-file-password-prompt" >
@@ -22,15 +22,17 @@
   </script>
 
   <!-- User-definable properties -->
-  <if test="${not property::exists('configuration')}">
-    <property name="configuration" value="Debug" />
+  <if test="${not property::exists('signFiles')}">
+    <property name="signFiles" value="false" />
   </if>
-
-  <if test="${not property::exists('signfiles')}">
-    <property name="signfiles" value="false" />
-    <if test="${configuration == 'Release'}">
-      <property name="signfiles" value="true" />
-    </if>
+  <if test="${not property::exists('signFilesCert')}">
+    <property name="signFilesCert" value="certs/SelfSigned.pfx" />
+  </if>
+  <if test="${property::exists('signFilesCertAskPassword')}">
+    <property name="signFilesCertAskPassword" value="true" />
+  </if>
+  <if test="${not property::exists('signFilesCertAskPassword')}">
+    <property name="signFilesCertAskPassword" value="false" />
   </if>
 
   <!-- Internal properties -->
@@ -56,7 +58,7 @@
     </delete>
   </target>
 
-  <target name="clean-dist" description="Deletes the dist output folder">
+  <target name="cleanDist" description="Deletes the dist output folder">
     <delete>
       <fileset basedir="${BuildDir}">
         <include name="dist/**" />
@@ -118,12 +120,13 @@
   <target name="sign-file">
     <!-- Remember to set the ${fileToSign} property before calling this. -->
     <!-- Must not be called standalone as it requires some properties set. -->
-    <if test="${signfiles == 'true'}">
+    <if test="${signFiles == 'true'}">
       <exec program="tools/codesigning/signtool">
-        <arg line="sign /fd sha256 /tr http://timestamp.geotrust.com/tsa /td SHA256 /v /p" />
-        <arg value="${sign-password}" />
+        <arg line="sign /fd sha256 /tr http://timestamp.geotrust.com/tsa /td SHA256 /v" />
+        <arg value="/p" if="${sign-password != ''}" />
+        <arg value="${sign-password}" if="${sign-password != ''}" />
         <arg value="/f" />
-        <arg path="../../Certs/CodeSigning-Release.p12" />
+        <arg path="${signFilesCert}" />
         <arg path="${fileToSign}" />
       </exec>
     </if>
@@ -136,7 +139,7 @@
     </if>
   </target>
 
-  <target name="pkg-linux">
+  <target name="pkgDeb">
     <!-- Must not be called standalone as it requires some properties set. -->
     <!-- Remember to have called get-version for the project before calling this -->
     <if test="${not platform::is-unix()}">
@@ -153,7 +156,19 @@
 
   </target>
 
-  <target name="all" depends="nuget-restore allauth" />
+  <target name="debug" depends="nuget-restore">
+    <if test="${not property::exists('configuration')}">
+      <property name="configuration" value="Debug" />
+    </if>
+    <call target="allauth" />
+  </target>
+
+  <target name="release" depends="nuget-restore">
+    <if test="${not property::exists('configuration')}">
+      <property name="configuration" value="Release" />
+    </if>
+    <call target="allauth" />
+  </target>
 
   <!--
     Desktop application
@@ -187,29 +202,38 @@
     </if>
   </target>
 
-  <target name="pkg-win" depends="clean-dist allauth">
+  <target name="pkgWin" depends="release" description="Builds the windows installer for release">
+    <if test="${not (configuration=='Release')}">
+      <fail message="Target must be run on release build"/>
+    </if>
+      <if test="${not platform::is-windows()}">
+        <fail message="Target must be run on Windows"/>
+      </if>
+
     <property name="PackageName" value="AllAuth"/>
     <property name="Project" value="AllAuth.Desktop"/>
     <call target="get-version" />
 
     <!-- Sign all PE files -->
-    <property name="sign-password" value="${sign-file-password-prompt::ask('Password for code signing certificate?')}" />
-    <if test="${configuration=='Release'}">
-      <foreach item="File" property="filename" in="build/release/${Project}">
-        <do>
-          <if test="${not string::ends-with(filename, '.vshost.exe')}">
-            <if test="${string::ends-with(filename,'.dll') or string::ends-with(filename,'.exe')}">
-              <property name="fileToSign" value="${filename}"/>
-              <call target="sign-file"/>
+    <if test="${signFiles == 'true'}">
+      <property name="sign-password" value="" />
+      <if test="${signFilesCertAskPassword == 'true'}">
+        <property name="sign-password" value="${sign-file-password-prompt::ask('Password for code signing certificate?')}" />
+      </if>
+      <if test="${configuration=='Release'}">
+        <foreach item="File" property="filename" in="build/release/${Project}">
+          <do>
+            <if test="${not string::ends-with(filename, '.vshost.exe')}">
+              <if test="${string::ends-with(filename,'.dll') or string::ends-with(filename,'.exe')}">
+                <property name="fileToSign" value="${filename}"/>
+                <call target="sign-file"/>
+              </if>
             </if>
-          </if>
-        </do>
-      </foreach>
+          </do>
+        </foreach>
+      </if>
     </if>
 
-    <if test="${not platform::is-windows()}">
-      <fail message="Target must be run on Windows"/>
-    </if>
     <property name="tmpbuildfolder" value="build/win-installer"/>
     <property name="nupkgfilename" value="${PackageName}.${VersionFull}.nupkg"/>
     <copy file="src/${Project}/${Project}.nuspec" tofile="src/${Project}/${Project}.tmp.nuspec"/>
@@ -234,8 +258,13 @@
     </exec>
 
     <!-- We need to sign this now as squirrel will be copying it into the installer -->
-    <property name="fileToSign" value="tools/squirrel.windows/tools/Squirrel.exe"/>
-    <call target="sign-file"/>
+    <if test="${signFiles == 'true'}">
+      <!-- This copy is a bit of a workaround to prevent the signed file from showing as a changed file in git -->
+      <!-- It will be moved back again later -->
+      <copy file="tools/squirrel.windows/tools/Squirrel.exe" tofile="tools/squirrel.windows/tools/Squirrel.exe.bak" />
+      <property name="fileToSign" value="tools/squirrel.windows/tools/Squirrel.exe"/>
+      <call target="sign-file"/>
+    </if>
 
     <echo message="Generating squirrel.windows installer packages..."/>
     <exec program="Squirrel" basedir="tools/squirrel.windows/tools">
@@ -247,10 +276,14 @@
     <delete file="build/${nupkgfilename}" />
 
     <!-- Sign the final installers -->
-    <property name="fileToSign" value="build/win-installer/Setup.exe"/>
-    <call target="sign-file"/>
-    <property name="fileToSign" value="build/win-installer/Setup.msi"/>
-    <call target="sign-file"/>
+    <if test="${signFiles == 'true'}">
+      <!-- We're done with this file, we can move it back now -->
+      <move overwrite="true" file="tools/squirrel.windows/tools/Squirrel.exe.bak" tofile="tools/squirrel.windows/tools/Squirrel.exe" />
+      <property name="fileToSign" value="build/win-installer/Setup.exe"/>
+      <call target="sign-file"/>
+      <property name="fileToSign" value="build/win-installer/Setup.msi"/>
+      <call target="sign-file"/>
+    </if>
 
     <!-- Move the installers and update packages to the dist dir -->
     <property name="distdir" value="build/dist"/>
