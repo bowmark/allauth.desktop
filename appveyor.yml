@@ -4,7 +4,7 @@ shallow_clone: true
 cache:
   - packages -> **\packages.config
 
-before_build: cd .. && git clone git@github.com:bowmark/allauth.lib.git Lib
+before_build: cd .. && git clone https://github.com/bowmark/allauth.lib.git Lib
 build_script: .\build.bat clean release pkgWin
 #test_script: .\build.bat releaseTest
 
