@@ -13,7 +13,8 @@ Please contact security@allauthapp.com to report any security vulnerabilities ([
 ## Prerequisites
 
 - Git
-- Visual Studio 2015 (Community edition is fine)
+- For Windows: Visual Studio 2015 (Community edition is fine)
+- For other platforms: mono-devel >= 4.2
 
 ## Building
 
@@ -33,10 +34,18 @@ You can build the project via the Windows command prompt:
   build debug
 ```
 
-or a bash shell on Windows (e.g. MinGW, Git Bash):
+or bash (e.g. MinGW, Git Bash):
 
 ```shell
   ./build.sh debug
 ```
 
 or you can open the `AllAuth.Desktop.sln` solution file in Visual Studio 2015 where you can build and debug the project.
+
+## Platforms
+
+The desktop app is designed to run on Windows, Mac OSX and Linux, therefore all code and dependancies must be cross-platform compatible.
+
+The lib is also used in the mobile applications, so all lib code must be portable.
+
+Releases are currently only built against the .NET 4.5 profile, but can run on Mono. Future releases may be built against a mono profile for non-Windows platforms, but we'll consider this if stability becomes and issue.
