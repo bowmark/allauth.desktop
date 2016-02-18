@@ -184,6 +184,8 @@
   <target name="allauth-prebuild" depends="common-prebuild">
     <!-- Uses the same version for all subprojects. -->
     <exec program="build.bat" workingdir="../Lib">
+      <arg value="clean" />
+      <arg value="nuget-restore" />
       <arg value="allauth.lib-prebuild" />
     </exec>
     <property name="Project" value="AllAuth.Desktop"/>
