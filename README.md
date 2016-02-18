@@ -48,4 +48,4 @@ The desktop app is designed to run on Windows, Mac OSX and Linux, therefore all 
 
 The lib is also used in the mobile applications, so all lib code must be portable.
 
-Releases are currently only built against the .NET 4.5 profile, but can run on Mono. Future releases may be built against a mono profile for non-Windows platforms, but we'll consider this if stability becomes and issue.
+Releases are currently only built against the .NET 4.5 profile, but can run on Mono. Future releases may be built against a mono profile for non-Windows platforms, but we'll consider this if stability becomes an issue.
