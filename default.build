@@ -135,6 +135,7 @@
 
   <target name="common-postbuild">
     <if test="${configuration=='Debug'}">
+      <touch file="src/${Project}/config.dev.ini" />
       <copy file="src/${Project}/config.dev.ini" tofile="build/debug/${Project}/config.ini" />
     </if>
   </target>
