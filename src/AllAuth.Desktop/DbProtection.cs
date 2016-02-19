@@ -18,13 +18,13 @@ namespace AllAuth.Desktop
             {
                 // Need to create a new key
                 databaseKey = RandomUtil.GenerateDatabaseKey();
-                var encryptedKey = UserDataProtection.EncryptData(databaseKey);
+                var encryptedKey = UserDataProtection.Protect(databaseKey);
                 File.WriteAllText(keyPath, encryptedKey);
             }
             else
             {
                 var encryptedKey = File.ReadAllText(keyPath);
-                databaseKey = UserDataProtection.DecryptData(encryptedKey);
+                databaseKey = UserDataProtection.Unprotect(encryptedKey);
             }
 
             return databaseKey;

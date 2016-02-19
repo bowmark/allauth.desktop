@@ -75,7 +75,7 @@ Section: misc
 Priority: optional
 Architecture: all
 Installed-Size: ${INSTALLED_SIZE}
-Depends: mono-runtime (>= 3.2~), libmono-system-data-linq4.0-cil, libmono-system-xml-linq4.0-cil, libmono-system-management4.0-cil, libsqlcipher0
+Depends: mono-runtime (>= 3.2~), libmono-system-data-linq4.0-cil, libmono-system-xml-linq4.0-cil, libmono-system-management4.0-cil, libsqlcipher0, libgnome-keyring1.0-cil
 Maintainer: Bowmark Ltd <dev@allauthapp.com>
 Description: Login manager
 EOF

@@ -1,52 +1,93 @@
 ﻿using System;
+using System.Collections;
 using System.Security.Cryptography;
 using System.Text;
+using System.Windows.Forms;
 using AllAuth.Lib;
+using Gnome.Keyring;
 
 namespace AllAuth.Desktop
 {
     public static class UserDataProtection
     {
-        public static string EncryptData(string dataToEncrypt)
+        public static string Protect(string data)
         {
-            if (dataToEncrypt.Length <= 0)
-                throw new ArgumentException(nameof(dataToEncrypt));
-            if (dataToEncrypt == null)
-                throw new ArgumentNullException(nameof(dataToEncrypt));
-
-            var bytesToEncrypt = Encoding.UTF8.GetBytes(dataToEncrypt);
-
-            if (Environment.OSVersion.Platform == PlatformID.Win32NT)
-                return Convert.ToBase64String(EncryptDataDpapi(bytesToEncrypt));
+            if (data.Length <= 0)
+                throw new ArgumentException(nameof(data));
+            if (data == null)
+                throw new ArgumentNullException(nameof(data));
             
-            Logger.Warning("Unsupported platform for user data protection. Using plaintext.");
-            return dataToEncrypt;
-        }
-
-        private static byte[] EncryptDataDpapi(byte[] data)
-        {
-            return ProtectedData.Protect(data, null, DataProtectionScope.CurrentUser);
-        }
-
-        public static string DecryptData(string dataToDecrypt)
-        {
-            if (dataToDecrypt.Length <= 0)
-                throw new ArgumentException(nameof(dataToDecrypt));
-            if (dataToDecrypt == null)
-                throw new ArgumentNullException(nameof(dataToDecrypt));
-
-            var bytesToDecrypt = Convert.FromBase64String(dataToDecrypt);
-
             if (Environment.OSVersion.Platform == PlatformID.Win32NT)
-                return Encoding.UTF8.GetString(DecryptDataDpapi(bytesToDecrypt));
-            
-            Logger.Warning("Unsupported platform for user data protection. Using plaintext.");
-            return dataToDecrypt;
+                return EncryptDataDpapi(data);
+
+            if (Environment.OSVersion.Platform == PlatformID.Unix)
+            {
+                if (Ring.Available)
+                    return SaveInGnomeKeyring(data);
+            }
+
+            // Should probably be a nicer error than this.
+            throw new Exception("No supported data protection methods available");
+        }
+        
+        private static string EncryptDataDpapi(string data)
+        {
+            var bytesToEncrypt = Encoding.UTF8.GetBytes(data);
+            var encryptedBytes = ProtectedData.Protect(bytesToEncrypt, null, DataProtectionScope.CurrentUser);
+            return Convert.ToBase64String(encryptedBytes);
         }
 
-        private static byte[] DecryptDataDpapi(byte[] data)
+        private static string SaveInGnomeKeyring(string data)
         {
-            return ProtectedData.Unprotect(data, null, DataProtectionScope.CurrentUser);
+            Logger.Info("Gnome keyring available");
+            var keyring = Ring.GetDefaultKeyring();
+            if (keyring == null)
+                throw new Exception("No default keyring, can't use gnome keyring");
+            
+            Logger.Info("Saving data into Gnome keyring: " + keyring);
+            var id = Ring.CreateItem(
+                keyring, ItemType.GenericSecret, "AllAuth Local Database", new Hashtable(), data, true);
+
+            return id.ToString();
+        }
+
+        public static string Unprotect(string data)
+        {
+            if (data.Length <= 0)
+                throw new ArgumentException(nameof(data));
+            if (data == null)
+                throw new ArgumentNullException(nameof(data));
+            
+            if (Environment.OSVersion.Platform == PlatformID.Win32NT)
+                return DecryptDataDpapi(data);
+
+            if (Environment.OSVersion.Platform == PlatformID.Unix)
+            {
+                if (Ring.Available)
+                    return RetrieveFromGnomeKeyring(data);
+            }
+
+            // Should probably be a nicer error than this.
+            throw new Exception("No supported data protection methods available");
+        }
+
+        private static string DecryptDataDpapi(string data)
+        {
+            var bytesToDecrypt = Convert.FromBase64String(data);
+            var decryptedBytes = ProtectedData.Unprotect(bytesToDecrypt, null, DataProtectionScope.CurrentUser);
+            return Encoding.UTF8.GetString(decryptedBytes);
+        }
+        
+        private static string RetrieveFromGnomeKeyring(string data)
+        {
+            Logger.Info("Gnome keyring available");
+            var keyring = Ring.GetDefaultKeyring();
+            if (keyring == null)
+                throw new Exception("No default keyring, can't use gnome keyring");
+
+            Logger.Info("Retrieving data from Gnome keyring: " + keyring);
+            
+            return Ring.GetItemInfo(keyring, int.Parse(data)).Secret;
         }
     }
 }
