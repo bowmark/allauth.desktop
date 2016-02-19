@@ -85,8 +85,11 @@ namespace AllAuth.Desktop
             if (keyring == null)
                 throw new Exception("No default keyring, can't use gnome keyring");
 
-            Logger.Info("Retrieving data from Gnome keyring: " + keyring);
-            
+            Logger.Info("Attempting to unlock keyring " + keyring);
+
+            Ring.Unlock(keyring, null);
+
+            Logger.Info("Retrieving data from Gnome keyring");
             return Ring.GetItemInfo(keyring, int.Parse(data)).Secret;
         }
     }

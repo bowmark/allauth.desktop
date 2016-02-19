@@ -21,6 +21,7 @@ TEMP_DIR_BIN="$TEMP_DIR/usr/bin"
 TEMP_DIR_LIB="$TEMP_DIR/usr/lib/${PROGRAM_NAME}"
 TEMP_DIR_DOC="$TEMP_DIR/usr/share/doc/${PROGRAM_NAME}"
 TEMP_DIR_SHORTCUT="$TEMP_DIR/usr/share/applications"
+TEMP_DIR_ICON="$TEMP_DIR/usr/share/pixmaps"
 OUTPUT_DIR="build/dist"
 
 COPYRIGHT=$(cat <<EOF
@@ -47,6 +48,7 @@ mkdir -p "$TEMP_DIR_BIN"
 mkdir -p "$TEMP_DIR_LIB"
 mkdir -p "$TEMP_DIR_DOC"
 mkdir -p "$TEMP_DIR_SHORTCUT"
+mkdir -p "$TEMP_DIR_ICON"
 mkdir -p "$OUTPUT_DIR"
 
 echo "Binaries and libraries..."
@@ -65,6 +67,8 @@ rm -f "$TEMP_DIR_LIB/sqlite3.dll"
 chmod -R 0644 "$TEMP_DIR_LIB/"*
 cp "$SCRIPT_DIR/allauth.desktop" "$TEMP_DIR_SHORTCUT"
 chmod 0644 "$TEMP_DIR_SHORTCUT/allauth.desktop"
+cp "$SCRIPT_DIR/ic_launcher_96px.png" "$TEMP_DIR_ICON/allauth_96px.png"
+chmod 0644 "$TEMP_DIR_ICON/allauth_96px.png"
 echo "$COPYRIGHT" > "$TEMP_DIR_DOC/copyright"
 
 INSTALLED_SIZE=$(du -s $TEMP_DIR | awk '{print $1}')

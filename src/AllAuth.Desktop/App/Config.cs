@@ -85,8 +85,16 @@ namespace AllAuth.Desktop.App
                 var appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
                 return Path.Combine(appDataFolder, "AllAuth", "app.log");
             }
+            
+            var homeDataFolder = Environment.GetEnvironmentVariable("HOME");
 
-            return null;
+            if (homeDataFolder == null)
+                throw new Exception("No HOME environment variable to determine where to store user data");
+
+            homeDataFolder = Path.Combine(homeDataFolder, ".allauth");
+            Directory.CreateDirectory(homeDataFolder);
+
+            return Path.Combine(homeDataFolder, "app.log");
         }
 
         private static string GetConfigPath()
