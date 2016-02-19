@@ -68,7 +68,7 @@ namespace AllAuth.Desktop.Forms
             // panelFormContainer
             // 
             this.panelFormContainer.Padding = new System.Windows.Forms.Padding(0);
-            this.panelFormContainer.Size = new System.Drawing.Size(868, 342);
+            this.panelFormContainer.Size = new System.Drawing.Size(840, 342);
             // 
             // panelContentContainer
             // 
@@ -77,7 +77,7 @@ namespace AllAuth.Desktop.Forms
             this.panelContentContainer.Controls.Add(this.panelHeaderContainer);
             this.panelContentContainer.Location = new System.Drawing.Point(0, 0);
             this.panelContentContainer.Margin = new System.Windows.Forms.Padding(2);
-            this.panelContentContainer.Size = new System.Drawing.Size(868, 342);
+            this.panelContentContainer.Size = new System.Drawing.Size(840, 342);
             // 
             // panelLoginRegister
             // 
@@ -88,7 +88,7 @@ namespace AllAuth.Desktop.Forms
             this.panelLoginRegister.Location = new System.Drawing.Point(0, 57);
             this.panelLoginRegister.Name = "panelLoginRegister";
             this.panelLoginRegister.Padding = new System.Windows.Forms.Padding(18, 20, 18, 20);
-            this.panelLoginRegister.Size = new System.Drawing.Size(868, 285);
+            this.panelLoginRegister.Size = new System.Drawing.Size(840, 285);
             this.panelLoginRegister.TabIndex = 11;
             // 
             // panelRegister
@@ -98,19 +98,19 @@ namespace AllAuth.Desktop.Forms
             this.panelRegister.Controls.Add(this.lblRegisterDescription);
             this.panelRegister.Controls.Add(this.lblRegisterTitle);
             this.panelRegister.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelRegister.Location = new System.Drawing.Point(460, 20);
+            this.panelRegister.Location = new System.Drawing.Point(412, 20);
             this.panelRegister.Name = "panelRegister";
-            this.panelRegister.Padding = new System.Windows.Forms.Padding(44, 0, 9, 9);
-            this.panelRegister.Size = new System.Drawing.Size(390, 245);
+            this.panelRegister.Padding = new System.Windows.Forms.Padding(20, 0, 9, 9);
+            this.panelRegister.Size = new System.Drawing.Size(410, 245);
             this.panelRegister.TabIndex = 4;
             // 
             // panelRegisterButton
             // 
             this.panelRegisterButton.Controls.Add(this.btnRegister);
             this.panelRegisterButton.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelRegisterButton.Location = new System.Drawing.Point(44, 123);
+            this.panelRegisterButton.Location = new System.Drawing.Point(20, 123);
             this.panelRegisterButton.Name = "panelRegisterButton";
-            this.panelRegisterButton.Size = new System.Drawing.Size(337, 42);
+            this.panelRegisterButton.Size = new System.Drawing.Size(381, 42);
             this.panelRegisterButton.TabIndex = 4;
             // 
             // btnRegister
@@ -131,18 +131,18 @@ namespace AllAuth.Desktop.Forms
             // panel2
             // 
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel2.Location = new System.Drawing.Point(44, 114);
+            this.panel2.Location = new System.Drawing.Point(20, 114);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(337, 9);
+            this.panel2.Size = new System.Drawing.Size(381, 9);
             this.panel2.TabIndex = 15;
             // 
             // lblRegisterDescription
             // 
             this.lblRegisterDescription.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblRegisterDescription.Location = new System.Drawing.Point(44, 42);
+            this.lblRegisterDescription.Location = new System.Drawing.Point(20, 42);
             this.lblRegisterDescription.Name = "lblRegisterDescription";
             this.lblRegisterDescription.Padding = new System.Windows.Forms.Padding(0, 15, 0, 0);
-            this.lblRegisterDescription.Size = new System.Drawing.Size(337, 72);
+            this.lblRegisterDescription.Size = new System.Drawing.Size(381, 72);
             this.lblRegisterDescription.TabIndex = 3;
             this.lblRegisterDescription.Text = "All you need is your email address to start your 14 day free trial.";
             // 
@@ -151,9 +151,9 @@ namespace AllAuth.Desktop.Forms
             this.lblRegisterTitle.Dock = System.Windows.Forms.DockStyle.Top;
             this.lblRegisterTitle.Font = new System.Drawing.Font("Open Sans Light", 22F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblRegisterTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(139)))), ((int)(((byte)(195)))), ((int)(((byte)(75)))));
-            this.lblRegisterTitle.Location = new System.Drawing.Point(44, 0);
+            this.lblRegisterTitle.Location = new System.Drawing.Point(20, 0);
             this.lblRegisterTitle.Name = "lblRegisterTitle";
-            this.lblRegisterTitle.Size = new System.Drawing.Size(337, 42);
+            this.lblRegisterTitle.Size = new System.Drawing.Size(381, 42);
             this.lblRegisterTitle.TabIndex = 1;
             this.lblRegisterTitle.Text = "Don\'t have an account?";
             this.lblRegisterTitle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -163,7 +163,7 @@ namespace AllAuth.Desktop.Forms
             this.panelVerticalSplitLine.BackColor = System.Drawing.Color.LightGray;
             this.panelVerticalSplitLine.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelVerticalSplitLine.ForeColor = System.Drawing.Color.Silver;
-            this.panelVerticalSplitLine.Location = new System.Drawing.Point(458, 20);
+            this.panelVerticalSplitLine.Location = new System.Drawing.Point(410, 20);
             this.panelVerticalSplitLine.Name = "panelVerticalSplitLine";
             this.panelVerticalSplitLine.Size = new System.Drawing.Size(2, 245);
             this.panelVerticalSplitLine.TabIndex = 1;
@@ -181,7 +181,7 @@ namespace AllAuth.Desktop.Forms
             this.panelLogin.Location = new System.Drawing.Point(18, 20);
             this.panelLogin.Name = "panelLogin";
             this.panelLogin.Padding = new System.Windows.Forms.Padding(9, 0, 20, 9);
-            this.panelLogin.Size = new System.Drawing.Size(440, 245);
+            this.panelLogin.Size = new System.Drawing.Size(392, 245);
             this.panelLogin.TabIndex = 0;
             // 
             // panelLoginButton
@@ -191,7 +191,7 @@ namespace AllAuth.Desktop.Forms
             this.panelLoginButton.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelLoginButton.Location = new System.Drawing.Point(9, 198);
             this.panelLoginButton.Name = "panelLoginButton";
-            this.panelLoginButton.Size = new System.Drawing.Size(411, 42);
+            this.panelLoginButton.Size = new System.Drawing.Size(363, 42);
             this.panelLoginButton.TabIndex = 11;
             // 
             // lblLoginLoading
@@ -224,7 +224,7 @@ namespace AllAuth.Desktop.Forms
             this.panelLoginButtonSpacing.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelLoginButtonSpacing.Location = new System.Drawing.Point(9, 189);
             this.panelLoginButtonSpacing.Name = "panelLoginButtonSpacing";
-            this.panelLoginButtonSpacing.Size = new System.Drawing.Size(411, 9);
+            this.panelLoginButtonSpacing.Size = new System.Drawing.Size(363, 9);
             this.panelLoginButtonSpacing.TabIndex = 10;
             // 
             // txtLoginPassword
@@ -251,7 +251,7 @@ namespace AllAuth.Desktop.Forms
             this.lblPassword.Location = new System.Drawing.Point(9, 115);
             this.lblPassword.Name = "lblPassword";
             this.lblPassword.Padding = new System.Windows.Forms.Padding(4, 0, 0, 0);
-            this.lblPassword.Size = new System.Drawing.Size(411, 32);
+            this.lblPassword.Size = new System.Drawing.Size(363, 32);
             this.lblPassword.TabIndex = 7;
             this.lblPassword.Text = "Recovery Passphrase";
             this.lblPassword.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
@@ -282,7 +282,7 @@ namespace AllAuth.Desktop.Forms
             this.lblEmailAddress.Margin = new System.Windows.Forms.Padding(0);
             this.lblEmailAddress.Name = "lblEmailAddress";
             this.lblEmailAddress.Padding = new System.Windows.Forms.Padding(4, 0, 0, 0);
-            this.lblEmailAddress.Size = new System.Drawing.Size(411, 31);
+            this.lblEmailAddress.Size = new System.Drawing.Size(363, 31);
             this.lblEmailAddress.TabIndex = 3;
             this.lblEmailAddress.Text = "Email address";
             this.lblEmailAddress.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
@@ -294,7 +294,7 @@ namespace AllAuth.Desktop.Forms
             this.labelLoginTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(139)))), ((int)(((byte)(195)))), ((int)(((byte)(75)))));
             this.labelLoginTitle.Location = new System.Drawing.Point(9, 0);
             this.labelLoginTitle.Name = "labelLoginTitle";
-            this.labelLoginTitle.Size = new System.Drawing.Size(411, 42);
+            this.labelLoginTitle.Size = new System.Drawing.Size(363, 42);
             this.labelLoginTitle.TabIndex = 0;
             this.labelLoginTitle.Text = "Log in to your account";
             this.labelLoginTitle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -307,7 +307,7 @@ namespace AllAuth.Desktop.Forms
             this.panelHeaderContainer.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelHeaderContainer.Location = new System.Drawing.Point(0, 0);
             this.panelHeaderContainer.Name = "panelHeaderContainer";
-            this.panelHeaderContainer.Size = new System.Drawing.Size(868, 55);
+            this.panelHeaderContainer.Size = new System.Drawing.Size(840, 55);
             this.panelHeaderContainer.TabIndex = 14;
             // 
             // lblLogo
@@ -329,7 +329,7 @@ namespace AllAuth.Desktop.Forms
             this.panelOptionsContainer.Controls.Add(this.lblManualServerAddTop);
             this.panelOptionsContainer.Controls.Add(this.panel1);
             this.panelOptionsContainer.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panelOptionsContainer.Location = new System.Drawing.Point(647, 0);
+            this.panelOptionsContainer.Location = new System.Drawing.Point(619, 0);
             this.panelOptionsContainer.Name = "panelOptionsContainer";
             this.panelOptionsContainer.Size = new System.Drawing.Size(221, 55);
             this.panelOptionsContainer.TabIndex = 12;
@@ -366,7 +366,7 @@ namespace AllAuth.Desktop.Forms
             this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel3.Location = new System.Drawing.Point(0, 55);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(868, 2);
+            this.panel3.Size = new System.Drawing.Size(840, 2);
             this.panel3.TabIndex = 15;
             // 
             // GettingStarted
@@ -374,7 +374,7 @@ namespace AllAuth.Desktop.Forms
             this.AcceptButton = this.btnLoginStep1;
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(868, 342);
+            this.ClientSize = new System.Drawing.Size(840, 342);
             this.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(3);
             this.Name = "GettingStarted";
