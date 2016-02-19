@@ -232,13 +232,13 @@ namespace AllAuth.Desktop.Forms
             this.txtLoginPassword.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.txtLoginPassword.BackColor = System.Drawing.Color.Transparent;
             this.txtLoginPassword.Dock = System.Windows.Forms.DockStyle.Top;
-            this.txtLoginPassword.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtLoginPassword.Font = new System.Drawing.Font("Open Sans", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtLoginPassword.Location = new System.Drawing.Point(9, 147);
             this.txtLoginPassword.Margin = new System.Windows.Forms.Padding(0);
             this.txtLoginPassword.MaximumSize = new System.Drawing.Size(356, 42);
             this.txtLoginPassword.MultiLine = false;
             this.txtLoginPassword.Name = "txtLoginPassword";
-            this.txtLoginPassword.Padding = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.txtLoginPassword.Padding = new System.Windows.Forms.Padding(5);
             this.txtLoginPassword.Readonly = false;
             this.txtLoginPassword.Size = new System.Drawing.Size(356, 42);
             this.txtLoginPassword.TabIndex = 2;
@@ -261,13 +261,13 @@ namespace AllAuth.Desktop.Forms
             this.txtLoginEmailAddress.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.txtLoginEmailAddress.BackColor = System.Drawing.Color.Transparent;
             this.txtLoginEmailAddress.Dock = System.Windows.Forms.DockStyle.Top;
-            this.txtLoginEmailAddress.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtLoginEmailAddress.Font = new System.Drawing.Font("Open Sans", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtLoginEmailAddress.Location = new System.Drawing.Point(9, 73);
             this.txtLoginEmailAddress.Margin = new System.Windows.Forms.Padding(0);
             this.txtLoginEmailAddress.MaximumSize = new System.Drawing.Size(356, 42);
             this.txtLoginEmailAddress.MultiLine = false;
             this.txtLoginEmailAddress.Name = "txtLoginEmailAddress";
-            this.txtLoginEmailAddress.Padding = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.txtLoginEmailAddress.Padding = new System.Windows.Forms.Padding(5);
             this.txtLoginEmailAddress.Readonly = false;
             this.txtLoginEmailAddress.Size = new System.Drawing.Size(356, 42);
             this.txtLoginEmailAddress.TabIndex = 1;
@@ -372,8 +372,8 @@ namespace AllAuth.Desktop.Forms
             // GettingStarted
             // 
             this.AcceptButton = this.btnLoginStep1;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(868, 342);
             this.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(3);

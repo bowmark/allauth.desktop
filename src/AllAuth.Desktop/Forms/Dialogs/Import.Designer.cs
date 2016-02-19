@@ -42,12 +42,12 @@
             // lblTitle
             // 
             this.lblTitle.Location = new System.Drawing.Point(8, 4);
-            this.lblTitle.Size = new System.Drawing.Size(104, 41);
+            this.lblTitle.Size = new System.Drawing.Size(110, 41);
             this.lblTitle.Text = "Import";
             // 
             // panelFormContainer
             // 
-            this.panelFormContainer.Padding = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.panelFormContainer.Padding = new System.Windows.Forms.Padding(5);
             this.panelFormContainer.Size = new System.Drawing.Size(649, 204);
             // 
             // panelContentContainer
@@ -75,7 +75,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(18, 25);
+            this.label1.Location = new System.Drawing.Point(18, 22);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(89, 20);
             this.label1.TabIndex = 1;
@@ -126,8 +126,8 @@
             // 
             // Import
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(649, 204);
             this.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "Import";

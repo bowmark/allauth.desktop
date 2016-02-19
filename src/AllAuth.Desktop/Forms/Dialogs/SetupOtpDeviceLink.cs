@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -26,6 +27,8 @@ namespace AllAuth.Desktop.Forms.Dialogs
 
         private bool _formClosed;
 
+        private bool _loadingAnimationRunning;
+
         public SetupOtpDeviceLink(Controller controller, ApiClient apiClient, 
             ServerAccount serverAccount, CryptoKey cryptoKey)
         {
@@ -36,6 +39,9 @@ namespace AllAuth.Desktop.Forms.Dialogs
             _serverAccount = serverAccount;
             _cryptoKey = cryptoKey;
 
+            _loadingAnimationRunning = true;
+            ImageAnimator.Animate(lblQrCode.Image, AnimateLoader);
+            
             txtOtpDeviceLinkCode.Visible = Program.AppEnvDebug;
         }
 
@@ -61,16 +67,21 @@ namespace AllAuth.Desktop.Forms.Dialogs
 
             Logger.Verbose("Attempting to link to second device with code: " + linkCodeString);
 
+            // The -1 on the dimensions is due to an issue in Mono where the image won't show
+            // unless it is smaller than the label (rather than the same size)
             var barcodeWriter = new BarcodeWriter
             {
                 Format = BarcodeFormat.QR_CODE,
                 Options = new ZXing.Common.EncodingOptions
                 {
                     Margin = 0,
-                    Height = lblQrCode.Height,
-                    Width = lblQrCode.Height
+                    Height = lblQrCode.Height - 1,
+                    Width = lblQrCode.Height - 1
                 }
             };
+
+            ImageAnimator.StopAnimate(lblQrCode.Image, AnimateLoader);
+            _loadingAnimationRunning = false;
 
             var barcodeBitmap = barcodeWriter.Write(linkCodeString);
             lblQrCode.Image = barcodeBitmap;
@@ -79,6 +90,14 @@ namespace AllAuth.Desktop.Forms.Dialogs
             _checkthread.Start();
             
             txtOtpDeviceLinkCode.Text = linkCodeString;
+        }
+
+        private void AnimateLoader(object sender, EventArgs args)
+        {
+            if (!_loadingAnimationRunning)
+                return;
+            ImageAnimator.UpdateFrames();
+            lblQrCode.Invalidate();
         }
 
         private async Task<string> GetLoginIdentifier()

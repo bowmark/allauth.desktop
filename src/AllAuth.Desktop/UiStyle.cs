@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Drawing.Text;
 using System.IO;
 
@@ -16,38 +17,26 @@ namespace AllAuth.Desktop
         
         static UiStyle()
         {
-            // Custom font errors seen in Ubuntu 14.04
-            //if (Environment.OSVersion.Platform != PlatformID.Win32NT)
-            //{
+            if (IsFontInstalled("Segoe UI"))
+            {
                 DefaultFont = new Font("Segoe UI", DefaultFontSize, FontStyle.Regular, GraphicsUnit.Point, 0);
                 DefaultFontTitle = new Font("Segoe UI Light", DefaultFontTitleSize, FontStyle.Regular, GraphicsUnit.Point, 0);
-                return;
-            //}
-
-            if (File.Exists("Resources/OpenSans-Regular.ttf"))
-            {
-                var privateFontsRegular = new PrivateFontCollection();
-                privateFontsRegular.AddFontFile("Resources/OpenSans-Regular.ttf");
-                var regularFont = privateFontsRegular.Families[0];
-
-                DefaultFont = new Font(regularFont, DefaultFontSize, FontStyle.Regular, GraphicsUnit.Point, 0);
             }
             else
             {
                 DefaultFont = new Font("Open Sans", DefaultFontSize, FontStyle.Regular, GraphicsUnit.Point, 0);
-            }
-
-            if (File.Exists("Resources/OpenSans-Light.ttf"))
-            {
-                var privateFontsLight = new PrivateFontCollection();
-                privateFontsLight.AddFontFile("Resources/OpenSans-Light.ttf");
-                var lightFont = privateFontsLight.Families[0];
-                
-                DefaultFontTitle = new Font(lightFont, DefaultFontTitleSize, FontStyle.Regular, GraphicsUnit.Point, 0);
-            }
-            else
-            {
                 DefaultFontTitle = new Font("Open Sans Light", DefaultFontTitleSize, FontStyle.Regular, GraphicsUnit.Point, 0);
+            }
+        }
+
+        private static bool IsFontInstalled(string fontName)
+        {
+            using (var testFont = new Font(fontName, 8))
+            {
+                return 0 == string.Compare(
+                  fontName,
+                  testFont.Name,
+                  StringComparison.InvariantCultureIgnoreCase);
             }
         }
     }

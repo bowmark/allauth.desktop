@@ -45,6 +45,10 @@
   <if test="${platform::is-unix()}">
     <property name="BuildTool" value="xbuild" readonly="true"/>
   </if>
+  <property name="build-script-filename" value="build.sh" />
+  <if test="${platform::is-windows()}">
+  <property name="build-script-filename" value="build.bat" />
+  </if>
 
   <!--
     Util Targets
@@ -140,19 +144,6 @@
     </if>
   </target>
 
-  <target name="pkgDeb">
-    <!-- Must not be called standalone as it requires some properties set. -->
-    <!-- Remember to have called get-version for the project before calling this -->
-    <if test="${not platform::is-unix()}">
-      <fail message="Target must be run on linux"/>
-    </if>
-    <exec program="bash">
-      <arg path="scripts/${PackageName}-pkg-deb/mkdeb.sh" />
-      <arg value="${VersionProgram}"/>
-      <arg value="${VersionFull}"/>
-    </exec>
-  </target>
-
   <target name="common-prebuild">
 
   </target>
@@ -184,8 +175,7 @@
 
   <target name="allauth-prebuild" depends="common-prebuild">
     <!-- Uses the same version for all subprojects. -->
-    <exec program="build.bat" workingdir="../Lib">
-      <arg value="clean" />
+    <exec program="${build-script-filename}" workingdir="../Lib">
       <arg value="nuget-restore" />
       <arg value="allauth.lib-prebuild" />
     </exec>
@@ -208,13 +198,10 @@
     </if>
   </target>
 
-  <target name="pkgWin" depends="release" description="Builds the windows installer for release">
-    <if test="${not (configuration=='Release')}">
-      <fail message="Target must be run on release build"/>
+  <target name="pkgWin" description="Builds the windows installer for release">
+    <if test="${not platform::is-windows()}">
+      <fail message="Target must be run on Windows"/>
     </if>
-      <if test="${not platform::is-windows()}">
-        <fail message="Target must be run on Windows"/>
-      </if>
 
     <property name="PackageName" value="AllAuth"/>
     <property name="Project" value="AllAuth.Desktop"/>
@@ -241,12 +228,12 @@
     </if>
 
     <property name="tmpbuildfolder" value="build/win-installer"/>
-    <property name="nupkgfilename" value="${PackageName}.${VersionFull}.nupkg"/>
+    <property name="nupkgfilename" value="${PackageName}.${VersionProgram}.nupkg"/>
     <copy file="src/${Project}/${Project}.nuspec" tofile="src/${Project}/${Project}.tmp.nuspec"/>
     <xmlpoke
       file="src/${Project}/${Project}.tmp.nuspec"
       xpath="/package/metadata/version"
-      value="${VersionFull}" />
+      value="${VersionProgram}" />
     <exec program="nuget.exe" basedir="tools">
       <arg value="pack"/>
       <arg path="src/${Project}/${Project}.tmp.nuspec" />
@@ -294,16 +281,31 @@
     <!-- Move the installers and update packages to the dist dir -->
     <property name="distdir" value="build/dist"/>
     <property name="distdirupdates" value="${distdir}/win-update-pkgs"/>
-    <copy file="build/win-installer/Setup.exe" tofile="${distdir}/${VersionFull}/${PackageName}-Setup.exe" />
+    <copy file="build/win-installer/Setup.exe" tofile="${distdir}/${VersionProgram}/${PackageName}-${VersionProgram}-Setup.exe" />
     <move file="build/win-installer/Setup.exe" tofile="${distdir}/${PackageName}-Setup.exe" />
     <!--<move file="build/win-installer/Setup.msi" tofile="${distdir}/${PackageName}-SetupEnterprise.msi" />-->
     <move file="build/win-installer/RELEASES" tofile="${distdirupdates}/RELEASES"/>
     <move todir="${distdirupdates}">
       <fileset basedir="build/win-installer">
-        <include name="*-${VersionFull}-delta.nupkg" />
-        <include name="*-${VersionFull}-full.nupkg" />
+        <include name="*-${VersionProgram}-delta.nupkg" />
+        <include name="*-${VersionProgram}-full.nupkg" />
       </fileset>
     </move>
+  </target>
+
+  <target name="pkgDeb">
+    <property name="Project" value="AllAuth.Desktop"/>
+    <call target="get-version" />
+    <property name="PackageName" value="allauth"/>
+    <if test="${not platform::is-unix()}">
+      <fail message="Target must be run on linux"/>
+    </if>
+    <exec program="bash">
+      <arg path="scripts/${PackageName}-pkg-deb/mkdeb.sh" />
+      <arg value="${VersionProgram}"/>
+      <arg value="${VersionFull}"/>
+    </exec>
+    <copy file="build/dist/allauth_current_all.deb" tofile="build/dist/${VersionProgram}/allauth_${VersionProgram}_all.deb" />
   </target>
 
   <target name="allauth-testdevice-postbuild">

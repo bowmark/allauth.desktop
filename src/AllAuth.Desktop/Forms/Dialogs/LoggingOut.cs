@@ -1,4 +1,6 @@
-﻿namespace AllAuth.Desktop.Forms.Dialogs
+﻿using System.Windows.Forms;
+
+namespace AllAuth.Desktop.Forms.Dialogs
 {
     internal partial class LoggingOut : Templates.FormDialog
     {
@@ -8,8 +10,9 @@
         public LoggingOut(Controller controller)
         {
             InitializeComponent();
-
             Controller = controller;
+
+            StartLoadingAnimation(lblLoadingImage);
         }
 
         private async void OpeningAccountManagement_Shown(object sender, System.EventArgs e)
@@ -18,6 +21,8 @@
 
             Success = true;
             Close();
+            
+            Application.Restart();
         }
     }
 }

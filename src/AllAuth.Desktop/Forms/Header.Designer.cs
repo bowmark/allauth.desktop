@@ -30,31 +30,126 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Header));
-            this.panelTabsOuterContainer = new System.Windows.Forms.Panel();
-            this.panelServerManagementInfo = new System.Windows.Forms.Panel();
-            this.lblServerManagementInfo = new System.Windows.Forms.Label();
-            this.panelDatabaseInfo = new System.Windows.Forms.Panel();
-            this.lblDatabaseName = new System.Windows.Forms.Label();
             this.ctxAppOptions = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.changeRecoveryPassphraseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.helpAndSupportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.abountToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.panelTabsOuterContainer = new System.Windows.Forms.Panel();
+            this.panelServerManagementInfo = new System.Windows.Forms.Panel();
+            this.lblServerManagementInfo = new System.Windows.Forms.Label();
+            this.panelDatabaseInfo = new System.Windows.Forms.Panel();
+            this.lblDatabaseName = new System.Windows.Forms.Label();
             this.lblOptionsMenu = new System.Windows.Forms.Label();
             this.lblLogo = new System.Windows.Forms.Label();
-            this.changeRecoveryPassphraseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.ctxAppOptions.SuspendLayout();
             this.panelTabsOuterContainer.SuspendLayout();
             this.panelServerManagementInfo.SuspendLayout();
             this.panelDatabaseInfo.SuspendLayout();
-            this.ctxAppOptions.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // ctxAppOptions
+            // 
+            this.ctxAppOptions.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem1,
+            this.toolStripMenuItem2,
+            this.toolStripSeparator3,
+            this.toolsToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.helpAndSupportToolStripMenuItem,
+            this.abountToolStripMenuItem,
+            this.toolStripSeparator2,
+            this.exitToolStripMenuItem});
+            this.ctxAppOptions.Name = "ctxAppOptions";
+            this.ctxAppOptions.ShowImageMargin = false;
+            this.ctxAppOptions.Size = new System.Drawing.Size(143, 154);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(142, 22);
+            this.toolStripMenuItem1.Text = "Manage Account";
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(142, 22);
+            this.toolStripMenuItem2.Text = "Logout";
+            this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(139, 6);
+            // 
+            // toolsToolStripMenuItem
+            // 
+            this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.importToolStripMenuItem,
+            this.toolStripSeparator4,
+            this.changeRecoveryPassphraseToolStripMenuItem});
+            this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.toolsToolStripMenuItem.Text = "Tools";
+            // 
+            // importToolStripMenuItem
+            // 
+            this.importToolStripMenuItem.Name = "importToolStripMenuItem";
+            this.importToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
+            this.importToolStripMenuItem.Text = "Import";
+            this.importToolStripMenuItem.Click += new System.EventHandler(this.importToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(221, 6);
+            // 
+            // changeRecoveryPassphraseToolStripMenuItem
+            // 
+            this.changeRecoveryPassphraseToolStripMenuItem.Name = "changeRecoveryPassphraseToolStripMenuItem";
+            this.changeRecoveryPassphraseToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
+            this.changeRecoveryPassphraseToolStripMenuItem.Text = "Change recovery passphrase";
+            this.changeRecoveryPassphraseToolStripMenuItem.Click += new System.EventHandler(this.changeRecoveryPassphraseToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(139, 6);
+            // 
+            // helpAndSupportToolStripMenuItem
+            // 
+            this.helpAndSupportToolStripMenuItem.Name = "helpAndSupportToolStripMenuItem";
+            this.helpAndSupportToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.helpAndSupportToolStripMenuItem.Text = "Help and Support";
+            this.helpAndSupportToolStripMenuItem.Click += new System.EventHandler(this.helpAndSupportToolStripMenuItem_Click);
+            // 
+            // abountToolStripMenuItem
+            // 
+            this.abountToolStripMenuItem.Name = "abountToolStripMenuItem";
+            this.abountToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.abountToolStripMenuItem.Text = "About";
+            this.abountToolStripMenuItem.Click += new System.EventHandler(this.abountToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(139, 6);
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // panelTabsOuterContainer
             // 
@@ -117,88 +212,6 @@
             this.lblDatabaseName.MouseEnter += new System.EventHandler(this.lblDatabaseName_MouseEnter);
             this.lblDatabaseName.MouseLeave += new System.EventHandler(this.lblDatabaseName_MouseLeave);
             // 
-            // ctxAppOptions
-            // 
-            this.ctxAppOptions.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem1,
-            this.toolStripMenuItem2,
-            this.toolStripSeparator3,
-            this.toolsToolStripMenuItem,
-            this.toolStripSeparator1,
-            this.helpAndSupportToolStripMenuItem,
-            this.abountToolStripMenuItem,
-            this.toolStripSeparator2,
-            this.exitToolStripMenuItem});
-            this.ctxAppOptions.Name = "ctxAppOptions";
-            this.ctxAppOptions.Size = new System.Drawing.Size(168, 176);
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(167, 22);
-            this.toolStripMenuItem1.Text = "Manage Account";
-            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
-            // 
-            // toolStripMenuItem2
-            // 
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(167, 22);
-            this.toolStripMenuItem2.Text = "Logout";
-            this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
-            // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(164, 6);
-            // 
-            // toolsToolStripMenuItem
-            // 
-            this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.importToolStripMenuItem,
-            this.toolStripSeparator4,
-            this.changeRecoveryPassphraseToolStripMenuItem});
-            this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
-            this.toolsToolStripMenuItem.Text = "Tools";
-            // 
-            // importToolStripMenuItem
-            // 
-            this.importToolStripMenuItem.Name = "importToolStripMenuItem";
-            this.importToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
-            this.importToolStripMenuItem.Text = "Import";
-            this.importToolStripMenuItem.Click += new System.EventHandler(this.importToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(164, 6);
-            // 
-            // helpAndSupportToolStripMenuItem
-            // 
-            this.helpAndSupportToolStripMenuItem.Name = "helpAndSupportToolStripMenuItem";
-            this.helpAndSupportToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
-            this.helpAndSupportToolStripMenuItem.Text = "Help and Support";
-            this.helpAndSupportToolStripMenuItem.Click += new System.EventHandler(this.helpAndSupportToolStripMenuItem_Click);
-            // 
-            // abountToolStripMenuItem
-            // 
-            this.abountToolStripMenuItem.Name = "abountToolStripMenuItem";
-            this.abountToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
-            this.abountToolStripMenuItem.Text = "About";
-            this.abountToolStripMenuItem.Click += new System.EventHandler(this.abountToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(164, 6);
-            // 
-            // exitToolStripMenuItem
-            // 
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
-            this.exitToolStripMenuItem.Text = "Exit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
-            // 
             // lblOptionsMenu
             // 
             this.lblOptionsMenu.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -226,22 +239,10 @@
             this.lblLogo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.lblLogo.Click += new System.EventHandler(this.lblLogo_Click);
             // 
-            // changeRecoveryPassphraseToolStripMenuItem
-            // 
-            this.changeRecoveryPassphraseToolStripMenuItem.Name = "changeRecoveryPassphraseToolStripMenuItem";
-            this.changeRecoveryPassphraseToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
-            this.changeRecoveryPassphraseToolStripMenuItem.Text = "Change recovery passphrase";
-            this.changeRecoveryPassphraseToolStripMenuItem.Click += new System.EventHandler(this.changeRecoveryPassphraseToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator4
-            // 
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(221, 6);
-            // 
             // Header
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(119)))), ((int)(((byte)(172)))), ((int)(((byte)(57)))));
             this.Controls.Add(this.panelTabsOuterContainer);
             this.Controls.Add(this.lblOptionsMenu);
@@ -250,10 +251,10 @@
             this.Name = "Header";
             this.Size = new System.Drawing.Size(798, 55);
             this.Load += new System.EventHandler(this.Header_Load);
+            this.ctxAppOptions.ResumeLayout(false);
             this.panelTabsOuterContainer.ResumeLayout(false);
             this.panelServerManagementInfo.ResumeLayout(false);
             this.panelDatabaseInfo.ResumeLayout(false);
-            this.ctxAppOptions.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

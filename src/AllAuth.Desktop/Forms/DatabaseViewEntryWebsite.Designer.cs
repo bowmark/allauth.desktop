@@ -36,26 +36,26 @@ namespace AllAuth.Desktop.Forms
             this.lblPassword = new System.Windows.Forms.Label();
             this.lblUrl = new System.Windows.Forms.Label();
             this.lblNotes = new System.Windows.Forms.Label();
-            this.txtNotes = new TextBox();
+            this.txtNotes = new AllAuth.Desktop.Forms.Templates.TextBox();
             this.lblUsername = new System.Windows.Forms.Label();
             this.tablePasswordContainer = new System.Windows.Forms.TableLayoutPanel();
+            this.lblCopyPassword = new System.Windows.Forms.Label();
+            this.lblGeneratePassword = new System.Windows.Forms.Label();
             this.tableUsernameContainer = new System.Windows.Forms.TableLayoutPanel();
-            this.txtUsername = new TextBox();
+            this.lblCopyUsername = new System.Windows.Forms.Label();
+            this.txtUsername = new AllAuth.Desktop.Forms.Templates.TextBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.txtUrl = new TextBox();
+            this.lblOpenURL = new System.Windows.Forms.Label();
+            this.txtUrl = new AllAuth.Desktop.Forms.Templates.TextBox();
             this.panelTitleOuterContainer = new System.Windows.Forms.Panel();
             this.panelTitleContainer = new System.Windows.Forms.Panel();
             this.lblTitle = new System.Windows.Forms.Label();
-            this.btnSaveDisabled = new ButtonDisabled();
+            this.btnSaveDisabled = new AllAuth.Desktop.Forms.Templates.ButtonDisabled();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.toolTip2 = new System.Windows.Forms.ToolTip(this.components);
             this.panelFooter = new System.Windows.Forms.Panel();
-            this.panelSaveBtn = new System.Windows.Forms.Panel();
-            this.lblCopyPassword = new System.Windows.Forms.Label();
-            this.lblGeneratePassword = new System.Windows.Forms.Label();
-            this.lblCopyUsername = new System.Windows.Forms.Label();
-            this.lblOpenURL = new System.Windows.Forms.Label();
             this.lblDelete = new System.Windows.Forms.Label();
+            this.panelSaveBtn = new System.Windows.Forms.Panel();
             this.panelContents.SuspendLayout();
             this.tableEntryContainer.SuspendLayout();
             this.tablePasswordContainer.SuspendLayout();
@@ -143,12 +143,12 @@ namespace AllAuth.Desktop.Forms
             this.txtNotes.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.txtNotes.BackColor = System.Drawing.Color.Transparent;
             this.txtNotes.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtNotes.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNotes.Font = new System.Drawing.Font("Open Sans", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNotes.Location = new System.Drawing.Point(89, 126);
             this.txtNotes.Margin = new System.Windows.Forms.Padding(0);
             this.txtNotes.MultiLine = true;
             this.txtNotes.Name = "txtNotes";
-            this.txtNotes.Padding = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.txtNotes.Padding = new System.Windows.Forms.Padding(5);
             this.txtNotes.Readonly = false;
             this.txtNotes.Size = new System.Drawing.Size(285, 157);
             this.txtNotes.TabIndex = 3;
@@ -182,6 +182,31 @@ namespace AllAuth.Desktop.Forms
             this.tablePasswordContainer.Size = new System.Drawing.Size(285, 42);
             this.tablePasswordContainer.TabIndex = 1;
             // 
+            // lblCopyPassword
+            // 
+            this.lblCopyPassword.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblCopyPassword.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblCopyPassword.Image = global::AllAuth.Desktop.Properties.Resources.paper42_green_16px;
+            this.lblCopyPassword.Location = new System.Drawing.Point(252, 0);
+            this.lblCopyPassword.Name = "lblCopyPassword";
+            this.lblCopyPassword.Size = new System.Drawing.Size(30, 42);
+            this.lblCopyPassword.TabIndex = 9;
+            this.lblCopyPassword.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.toolTip1.SetToolTip(this.lblCopyPassword, "Copy password to clipboard");
+            this.lblCopyPassword.Click += new System.EventHandler(this.lblCopyPassword_Click);
+            // 
+            // lblGeneratePassword
+            // 
+            this.lblGeneratePassword.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblGeneratePassword.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblGeneratePassword.Image = global::AllAuth.Desktop.Properties.Resources.reload18_green_16px;
+            this.lblGeneratePassword.Location = new System.Drawing.Point(216, 0);
+            this.lblGeneratePassword.Name = "lblGeneratePassword";
+            this.lblGeneratePassword.Size = new System.Drawing.Size(30, 42);
+            this.lblGeneratePassword.TabIndex = 10;
+            this.toolTip1.SetToolTip(this.lblGeneratePassword, "Generate new password");
+            this.lblGeneratePassword.Click += new System.EventHandler(this.lblGeneratePassword_Click);
+            // 
             // tableUsernameContainer
             // 
             this.tableUsernameContainer.ColumnCount = 2;
@@ -198,17 +223,31 @@ namespace AllAuth.Desktop.Forms
             this.tableUsernameContainer.Size = new System.Drawing.Size(285, 42);
             this.tableUsernameContainer.TabIndex = 0;
             // 
+            // lblCopyUsername
+            // 
+            this.lblCopyUsername.AutoSize = true;
+            this.lblCopyUsername.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblCopyUsername.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblCopyUsername.Image = global::AllAuth.Desktop.Properties.Resources.paper42_green_16px;
+            this.lblCopyUsername.Location = new System.Drawing.Point(252, 0);
+            this.lblCopyUsername.Name = "lblCopyUsername";
+            this.lblCopyUsername.Size = new System.Drawing.Size(30, 42);
+            this.lblCopyUsername.TabIndex = 10;
+            this.lblCopyUsername.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.toolTip1.SetToolTip(this.lblCopyUsername, "Copy username to clipboard");
+            this.lblCopyUsername.Click += new System.EventHandler(this.lblCopyUsername_Click);
+            // 
             // txtUsername
             // 
             this.txtUsername.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.txtUsername.BackColor = System.Drawing.Color.Transparent;
             this.txtUsername.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtUsername.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtUsername.Font = new System.Drawing.Font("Open Sans", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtUsername.Location = new System.Drawing.Point(0, 0);
             this.txtUsername.Margin = new System.Windows.Forms.Padding(0);
             this.txtUsername.MultiLine = false;
             this.txtUsername.Name = "txtUsername";
-            this.txtUsername.Padding = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.txtUsername.Padding = new System.Windows.Forms.Padding(5);
             this.txtUsername.Readonly = false;
             this.txtUsername.Size = new System.Drawing.Size(249, 42);
             this.txtUsername.TabIndex = 1;
@@ -230,17 +269,31 @@ namespace AllAuth.Desktop.Forms
             this.tableLayoutPanel1.Size = new System.Drawing.Size(285, 42);
             this.tableLayoutPanel1.TabIndex = 2;
             // 
+            // lblOpenURL
+            // 
+            this.lblOpenURL.AutoSize = true;
+            this.lblOpenURL.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblOpenURL.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblOpenURL.Image = global::AllAuth.Desktop.Properties.Resources.global50_green_16px;
+            this.lblOpenURL.Location = new System.Drawing.Point(252, 0);
+            this.lblOpenURL.Name = "lblOpenURL";
+            this.lblOpenURL.Size = new System.Drawing.Size(30, 42);
+            this.lblOpenURL.TabIndex = 10;
+            this.lblOpenURL.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.toolTip1.SetToolTip(this.lblOpenURL, "Open URL in browser");
+            this.lblOpenURL.Click += new System.EventHandler(this.lblOpenURL_Click);
+            // 
             // txtUrl
             // 
             this.txtUrl.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.txtUrl.BackColor = System.Drawing.Color.Transparent;
             this.txtUrl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtUrl.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtUrl.Font = new System.Drawing.Font("Open Sans", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtUrl.Location = new System.Drawing.Point(0, 0);
             this.txtUrl.Margin = new System.Windows.Forms.Padding(0);
             this.txtUrl.MultiLine = false;
             this.txtUrl.Name = "txtUrl";
-            this.txtUrl.Padding = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.txtUrl.Padding = new System.Windows.Forms.Padding(5);
             this.txtUrl.Readonly = false;
             this.txtUrl.Size = new System.Drawing.Size(249, 42);
             this.txtUrl.TabIndex = 1;
@@ -308,69 +361,6 @@ namespace AllAuth.Desktop.Forms
             this.panelFooter.Size = new System.Drawing.Size(410, 52);
             this.panelFooter.TabIndex = 12;
             // 
-            // panelSaveBtn
-            // 
-            this.panelSaveBtn.Controls.Add(this.btnSaveDisabled);
-            this.panelSaveBtn.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panelSaveBtn.Location = new System.Drawing.Point(248, 0);
-            this.panelSaveBtn.Name = "panelSaveBtn";
-            this.panelSaveBtn.Padding = new System.Windows.Forms.Padding(5);
-            this.panelSaveBtn.Size = new System.Drawing.Size(162, 52);
-            this.panelSaveBtn.TabIndex = 6;
-            // 
-            // lblCopyPassword
-            // 
-            this.lblCopyPassword.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.lblCopyPassword.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblCopyPassword.Image = global::AllAuth.Desktop.Properties.Resources.paper42_green_16px;
-            this.lblCopyPassword.Location = new System.Drawing.Point(252, 0);
-            this.lblCopyPassword.Name = "lblCopyPassword";
-            this.lblCopyPassword.Size = new System.Drawing.Size(30, 42);
-            this.lblCopyPassword.TabIndex = 9;
-            this.lblCopyPassword.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.toolTip1.SetToolTip(this.lblCopyPassword, "Copy password to clipboard");
-            this.lblCopyPassword.Click += new System.EventHandler(this.lblCopyPassword_Click);
-            // 
-            // lblGeneratePassword
-            // 
-            this.lblGeneratePassword.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.lblGeneratePassword.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblGeneratePassword.Image = global::AllAuth.Desktop.Properties.Resources.reload18_green_16px;
-            this.lblGeneratePassword.Location = new System.Drawing.Point(216, 0);
-            this.lblGeneratePassword.Name = "lblGeneratePassword";
-            this.lblGeneratePassword.Size = new System.Drawing.Size(30, 42);
-            this.lblGeneratePassword.TabIndex = 10;
-            this.toolTip1.SetToolTip(this.lblGeneratePassword, "Generate new password");
-            this.lblGeneratePassword.Click += new System.EventHandler(this.lblGeneratePassword_Click);
-            // 
-            // lblCopyUsername
-            // 
-            this.lblCopyUsername.AutoSize = true;
-            this.lblCopyUsername.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.lblCopyUsername.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblCopyUsername.Image = global::AllAuth.Desktop.Properties.Resources.paper42_green_16px;
-            this.lblCopyUsername.Location = new System.Drawing.Point(252, 0);
-            this.lblCopyUsername.Name = "lblCopyUsername";
-            this.lblCopyUsername.Size = new System.Drawing.Size(30, 42);
-            this.lblCopyUsername.TabIndex = 10;
-            this.lblCopyUsername.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.toolTip1.SetToolTip(this.lblCopyUsername, "Copy username to clipboard");
-            this.lblCopyUsername.Click += new System.EventHandler(this.lblCopyUsername_Click);
-            // 
-            // lblOpenURL
-            // 
-            this.lblOpenURL.AutoSize = true;
-            this.lblOpenURL.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.lblOpenURL.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblOpenURL.Image = global::AllAuth.Desktop.Properties.Resources.global50_green_16px;
-            this.lblOpenURL.Location = new System.Drawing.Point(252, 0);
-            this.lblOpenURL.Name = "lblOpenURL";
-            this.lblOpenURL.Size = new System.Drawing.Size(30, 42);
-            this.lblOpenURL.TabIndex = 10;
-            this.lblOpenURL.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.toolTip1.SetToolTip(this.lblOpenURL, "Open URL in browser");
-            this.lblOpenURL.Click += new System.EventHandler(this.lblOpenURL_Click);
-            // 
             // lblDelete
             // 
             this.lblDelete.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -381,10 +371,20 @@ namespace AllAuth.Desktop.Forms
             this.lblDelete.TabIndex = 5;
             this.lblDelete.Click += new System.EventHandler(this.lblDelete_Click);
             // 
+            // panelSaveBtn
+            // 
+            this.panelSaveBtn.Controls.Add(this.btnSaveDisabled);
+            this.panelSaveBtn.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panelSaveBtn.Location = new System.Drawing.Point(248, 0);
+            this.panelSaveBtn.Name = "panelSaveBtn";
+            this.panelSaveBtn.Padding = new System.Windows.Forms.Padding(5);
+            this.panelSaveBtn.Size = new System.Drawing.Size(162, 52);
+            this.panelSaveBtn.TabIndex = 6;
+            // 
             // DatabaseViewEntryWebsite
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.Controls.Add(this.panelContents);
             this.Controls.Add(this.panelTitleOuterContainer);
             this.Controls.Add(this.panelFooter);

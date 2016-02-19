@@ -17,7 +17,7 @@ namespace AllAuth.Desktop
         public static bool Restart { get; set; }
 
         private static Controller _controller;
-
+        
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -53,9 +53,11 @@ namespace AllAuth.Desktop
 
                 do
                 {
+                    Logger.Verbose("Starting application controller");
                     Restart = false;
                     _controller = new Controller();
                     _controller.Run();
+                    Logger.Verbose("Stopping application controller");
                     _controller.Stop();
                 } while (Restart);
             }
@@ -69,6 +71,11 @@ namespace AllAuth.Desktop
             }
 
             return 0;
+        }
+
+        public static bool IsRunningOnMono()
+        {
+            return Type.GetType("Mono.Runtime") != null;
         }
     }
 }

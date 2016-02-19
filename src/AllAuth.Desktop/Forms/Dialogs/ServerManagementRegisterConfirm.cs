@@ -30,7 +30,8 @@ namespace AllAuth.Desktop.Forms.Dialogs
             txtEmailCode.Text = txtEmailCode.Text.Trim();
             if (string.IsNullOrEmpty(txtEmailCode.Text))
                 return;
-            
+
+            StartLoadingAnimation(lblLoading);
             lblLoading.Visible = true;
             btnComplete.Enabled = false;
 
@@ -47,8 +48,10 @@ namespace AllAuth.Desktop.Forms.Dialogs
                 {
                     Invoke((MethodInvoker)delegate
                     {
+                        MessageBox.Show(@"Invalid confirmation code");
                         lblLoading.Visible = false;
                         btnComplete.Enabled = true;
+                        StopLoadingAnimation();
                     });
                     return;
                 }

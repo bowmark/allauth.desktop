@@ -32,6 +32,7 @@
             this.panelLeft = new System.Windows.Forms.Panel();
             this.panelGroupsContainer = new System.Windows.Forms.Panel();
             this.panelAddGroupContainer = new System.Windows.Forms.Panel();
+            this.panel3 = new System.Windows.Forms.Panel();
             this.lblNewGroup = new System.Windows.Forms.Label();
             this.splitContainerRight = new System.Windows.Forms.SplitContainer();
             this.panelCenter = new System.Windows.Forms.Panel();
@@ -41,7 +42,6 @@
             this.lblNewEntry = new System.Windows.Forms.Label();
             this.panelEntryDetailsContainer = new System.Windows.Forms.Panel();
             this.databaseViewEntryNone1 = new AllAuth.Desktop.Forms.DatabaseViewEntryNone();
-            this.panel3 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
@@ -109,6 +109,15 @@
             this.panelAddGroupContainer.Size = new System.Drawing.Size(163, 39);
             this.panelAddGroupContainer.TabIndex = 0;
             // 
+            // panel3
+            // 
+            this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(225)))), ((int)(((byte)(226)))));
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel3.Location = new System.Drawing.Point(0, 38);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(163, 1);
+            this.panel3.TabIndex = 1;
+            // 
             // lblNewGroup
             // 
             this.lblNewGroup.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -117,7 +126,7 @@
             this.lblNewGroup.Location = new System.Drawing.Point(0, 0);
             this.lblNewGroup.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblNewGroup.Name = "lblNewGroup";
-            this.lblNewGroup.Padding = new System.Windows.Forms.Padding(7, 8, 7, 8);
+            this.lblNewGroup.Padding = new System.Windows.Forms.Padding(8, 8, 8, 8);
             this.lblNewGroup.Size = new System.Drawing.Size(163, 39);
             this.lblNewGroup.TabIndex = 0;
             this.lblNewGroup.Text = "+ New Group";
@@ -141,7 +150,7 @@
             // 
             this.splitContainerRight.Panel2.Controls.Add(this.panelEntryDetailsContainer);
             this.splitContainerRight.Size = new System.Drawing.Size(635, 404);
-            this.splitContainerRight.SplitterDistance = 253;
+            this.splitContainerRight.SplitterDistance = 252;
             this.splitContainerRight.SplitterWidth = 1;
             this.splitContainerRight.TabIndex = 0;
             // 
@@ -154,7 +163,7 @@
             this.panelCenter.Location = new System.Drawing.Point(0, 0);
             this.panelCenter.Margin = new System.Windows.Forms.Padding(0);
             this.panelCenter.Name = "panelCenter";
-            this.panelCenter.Size = new System.Drawing.Size(253, 404);
+            this.panelCenter.Size = new System.Drawing.Size(252, 404);
             this.panelCenter.TabIndex = 0;
             // 
             // panelEntriesContainer
@@ -164,7 +173,7 @@
             this.panelEntriesContainer.Location = new System.Drawing.Point(0, 39);
             this.panelEntriesContainer.Margin = new System.Windows.Forms.Padding(0);
             this.panelEntriesContainer.Name = "panelEntriesContainer";
-            this.panelEntriesContainer.Size = new System.Drawing.Size(253, 365);
+            this.panelEntriesContainer.Size = new System.Drawing.Size(252, 365);
             this.panelEntriesContainer.TabIndex = 0;
             // 
             // panel1
@@ -176,7 +185,7 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(253, 39);
+            this.panel1.Size = new System.Drawing.Size(252, 39);
             this.panel1.TabIndex = 1;
             // 
             // panel2
@@ -185,7 +194,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel2.Location = new System.Drawing.Point(0, 38);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(253, 1);
+            this.panel2.Size = new System.Drawing.Size(252, 1);
             this.panel2.TabIndex = 1;
             // 
             // lblNewEntry
@@ -196,8 +205,8 @@
             this.lblNewEntry.Location = new System.Drawing.Point(0, 0);
             this.lblNewEntry.Margin = new System.Windows.Forms.Padding(0);
             this.lblNewEntry.Name = "lblNewEntry";
-            this.lblNewEntry.Padding = new System.Windows.Forms.Padding(7, 8, 7, 8);
-            this.lblNewEntry.Size = new System.Drawing.Size(253, 39);
+            this.lblNewEntry.Padding = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            this.lblNewEntry.Size = new System.Drawing.Size(252, 39);
             this.lblNewEntry.TabIndex = 0;
             this.lblNewEntry.Text = "+ New Entry";
             this.lblNewEntry.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -211,33 +220,24 @@
             this.panelEntryDetailsContainer.Location = new System.Drawing.Point(0, 0);
             this.panelEntryDetailsContainer.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panelEntryDetailsContainer.Name = "panelEntryDetailsContainer";
-            this.panelEntryDetailsContainer.Size = new System.Drawing.Size(381, 404);
+            this.panelEntryDetailsContainer.Size = new System.Drawing.Size(382, 404);
             this.panelEntryDetailsContainer.TabIndex = 0;
             // 
             // databaseViewEntryNone1
             // 
             this.databaseViewEntryNone1.BackColor = System.Drawing.Color.White;
             this.databaseViewEntryNone1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.databaseViewEntryNone1.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.databaseViewEntryNone1.Font = new System.Drawing.Font("Open Sans", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.databaseViewEntryNone1.Location = new System.Drawing.Point(0, 0);
             this.databaseViewEntryNone1.Margin = new System.Windows.Forms.Padding(0);
             this.databaseViewEntryNone1.Name = "databaseViewEntryNone1";
-            this.databaseViewEntryNone1.Size = new System.Drawing.Size(381, 404);
+            this.databaseViewEntryNone1.Size = new System.Drawing.Size(382, 404);
             this.databaseViewEntryNone1.TabIndex = 0;
-            // 
-            // panel3
-            // 
-            this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(225)))), ((int)(((byte)(226)))));
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel3.Location = new System.Drawing.Point(0, 38);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(163, 1);
-            this.panel3.TabIndex = 1;
             // 
             // DatabaseView
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.Controls.Add(this.splitContainer);
             this.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "DatabaseView";

@@ -8,8 +8,9 @@
         public OpeningAccountManagement(Controller controller)
         {
             InitializeComponent();
-
             Controller = controller;
+
+            StartLoadingAnimation(lblLoadingImage);
         }
 
         private async void OpeningAccountManagement_Shown(object sender, System.EventArgs e)

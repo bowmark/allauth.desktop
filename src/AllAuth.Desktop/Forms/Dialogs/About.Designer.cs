@@ -40,7 +40,7 @@
             // lblTitle
             // 
             this.lblTitle.Location = new System.Drawing.Point(7, 4);
-            this.lblTitle.Size = new System.Drawing.Size(96, 41);
+            this.lblTitle.Size = new System.Drawing.Size(100, 41);
             this.lblTitle.Text = "About";
             // 
             // panelFormContainer
@@ -111,8 +111,8 @@
             // 
             // About
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(401, 202);
             this.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "About";

@@ -40,7 +40,7 @@ namespace AllAuth.Desktop.Forms.Dialogs
             // lblTitle
             // 
             this.lblTitle.Location = new System.Drawing.Point(12, 6);
-            this.lblTitle.Size = new System.Drawing.Size(188, 41);
+            this.lblTitle.Size = new System.Drawing.Size(202, 41);
             this.lblTitle.Text = "Edit database";
             // 
             // panelFormContainer
@@ -58,12 +58,12 @@ namespace AllAuth.Desktop.Forms.Dialogs
             // 
             this.txtDbName.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.txtDbName.BackColor = System.Drawing.Color.Transparent;
-            this.txtDbName.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtDbName.Font = new System.Drawing.Font("Open Sans", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDbName.Location = new System.Drawing.Point(19, 39);
             this.txtDbName.Margin = new System.Windows.Forms.Padding(0);
             this.txtDbName.MultiLine = false;
             this.txtDbName.Name = "txtDbName";
-            this.txtDbName.Padding = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.txtDbName.Padding = new System.Windows.Forms.Padding(5);
             this.txtDbName.Readonly = false;
             this.txtDbName.Size = new System.Drawing.Size(386, 42);
             this.txtDbName.TabIndex = 0;
@@ -86,7 +86,7 @@ namespace AllAuth.Desktop.Forms.Dialogs
             this.btnEdit.Location = new System.Drawing.Point(19, 90);
             this.btnEdit.Margin = new System.Windows.Forms.Padding(0);
             this.btnEdit.Name = "btnEdit";
-            this.btnEdit.Padding = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.btnEdit.Padding = new System.Windows.Forms.Padding(5);
             this.btnEdit.Size = new System.Drawing.Size(386, 42);
             this.btnEdit.TabIndex = 6;
             this.btnEdit.TextValue = "Edit database";
@@ -95,8 +95,8 @@ namespace AllAuth.Desktop.Forms.Dialogs
             // EditDatabase
             // 
             this.AcceptButton = this.btnEdit;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(435, 209);
             this.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "EditDatabase";

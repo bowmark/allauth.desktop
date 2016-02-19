@@ -47,13 +47,13 @@ namespace AllAuth.Desktop.Forms.Dialogs
             // lblTitle
             // 
             this.lblTitle.Location = new System.Drawing.Point(7, 4);
-            this.lblTitle.Size = new System.Drawing.Size(287, 41);
+            this.lblTitle.Size = new System.Drawing.Size(309, 41);
             this.lblTitle.Text = "Account confirmation";
             // 
             // panelFormContainer
             // 
             this.panelFormContainer.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.panelFormContainer.Size = new System.Drawing.Size(626, 249);
+            this.panelFormContainer.Size = new System.Drawing.Size(626, 219);
             // 
             // panelContentContainer
             // 
@@ -61,18 +61,18 @@ namespace AllAuth.Desktop.Forms.Dialogs
             this.panelContentContainer.Controls.Add(this.panelSeparator);
             this.panelContentContainer.Controls.Add(this.panel2);
             this.panelContentContainer.Location = new System.Drawing.Point(4, 57);
-            this.panelContentContainer.Size = new System.Drawing.Size(618, 187);
+            this.panelContentContainer.Size = new System.Drawing.Size(618, 157);
             // 
             // txtEmailCode
             // 
             this.txtEmailCode.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.txtEmailCode.BackColor = System.Drawing.Color.Transparent;
-            this.txtEmailCode.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtEmailCode.Location = new System.Drawing.Point(22, 50);
+            this.txtEmailCode.Font = new System.Drawing.Font("Open Sans", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtEmailCode.Location = new System.Drawing.Point(22, 45);
             this.txtEmailCode.Margin = new System.Windows.Forms.Padding(0);
             this.txtEmailCode.MultiLine = false;
             this.txtEmailCode.Name = "txtEmailCode";
-            this.txtEmailCode.Padding = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.txtEmailCode.Padding = new System.Windows.Forms.Padding(5);
             this.txtEmailCode.Readonly = false;
             this.txtEmailCode.Size = new System.Drawing.Size(203, 42);
             this.txtEmailCode.TabIndex = 0;
@@ -81,7 +81,7 @@ namespace AllAuth.Desktop.Forms.Dialogs
             // lblConfirmCode
             // 
             this.lblConfirmCode.AutoSize = true;
-            this.lblConfirmCode.Location = new System.Drawing.Point(24, 25);
+            this.lblConfirmCode.Location = new System.Drawing.Point(24, 20);
             this.lblConfirmCode.Name = "lblConfirmCode";
             this.lblConfirmCode.Size = new System.Drawing.Size(133, 20);
             this.lblConfirmCode.TabIndex = 3;
@@ -96,13 +96,13 @@ namespace AllAuth.Desktop.Forms.Dialogs
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(281, 187);
+            this.panel1.Size = new System.Drawing.Size(281, 157);
             this.panel1.TabIndex = 4;
             // 
             // lblLoading
             // 
             this.lblLoading.Image = global::AllAuth.Desktop.Properties.Resources.ajax_loader;
-            this.lblLoading.Location = new System.Drawing.Point(222, 113);
+            this.lblLoading.Location = new System.Drawing.Point(222, 108);
             this.lblLoading.Name = "lblLoading";
             this.lblLoading.Size = new System.Drawing.Size(30, 30);
             this.lblLoading.TabIndex = 5;
@@ -113,7 +113,7 @@ namespace AllAuth.Desktop.Forms.Dialogs
             this.btnComplete.BackColor = System.Drawing.Color.Transparent;
             this.btnComplete.DialogResult = System.Windows.Forms.DialogResult.None;
             this.btnComplete.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnComplete.Location = new System.Drawing.Point(22, 106);
+            this.btnComplete.Location = new System.Drawing.Point(22, 101);
             this.btnComplete.Margin = new System.Windows.Forms.Padding(0);
             this.btnComplete.Name = "btnComplete";
             this.btnComplete.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -129,7 +129,7 @@ namespace AllAuth.Desktop.Forms.Dialogs
             this.panel2.Location = new System.Drawing.Point(282, 0);
             this.panel2.Name = "panel2";
             this.panel2.Padding = new System.Windows.Forms.Padding(18, 20, 18, 20);
-            this.panel2.Size = new System.Drawing.Size(336, 187);
+            this.panel2.Size = new System.Drawing.Size(336, 157);
             this.panel2.TabIndex = 5;
             // 
             // lblHelp
@@ -137,11 +137,10 @@ namespace AllAuth.Desktop.Forms.Dialogs
             this.lblHelp.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblHelp.Location = new System.Drawing.Point(18, 20);
             this.lblHelp.Name = "lblHelp";
-            this.lblHelp.Size = new System.Drawing.Size(300, 147);
+            this.lblHelp.Size = new System.Drawing.Size(300, 117);
             this.lblHelp.TabIndex = 0;
             this.lblHelp.Text = "You have mail! Please enter the code within the email you should shortly receive " +
-    "from us.\r\n\r\nWe do this to verify that you own this email account, so no one else" +
-    " can sign up with your address.";
+    "from us.";
             // 
             // panelSeparator
             // 
@@ -149,15 +148,15 @@ namespace AllAuth.Desktop.Forms.Dialogs
             this.panelSeparator.Dock = System.Windows.Forms.DockStyle.Right;
             this.panelSeparator.Location = new System.Drawing.Point(281, 0);
             this.panelSeparator.Name = "panelSeparator";
-            this.panelSeparator.Size = new System.Drawing.Size(1, 187);
+            this.panelSeparator.Size = new System.Drawing.Size(1, 157);
             this.panelSeparator.TabIndex = 6;
             // 
             // ServerManagementRegisterConfirm
             // 
             this.AcceptButton = this.btnComplete;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(626, 249);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.ClientSize = new System.Drawing.Size(626, 219);
             this.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(5, 8, 5, 8);
             this.Name = "ServerManagementRegisterConfirm";

@@ -30,9 +30,9 @@ namespace AllAuth.Desktop.Forms.Dialogs
         /// </summary>
         private void InitializeComponent()
         {
-            this.txtName = new TextBox();
+            this.txtName = new AllAuth.Desktop.Forms.Templates.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.btnCreate = new ButtonAccent();
+            this.btnCreate = new AllAuth.Desktop.Forms.Templates.ButtonAccent();
             this.panelFormContainer.SuspendLayout();
             this.panelContentContainer.SuspendLayout();
             this.SuspendLayout();
@@ -40,7 +40,7 @@ namespace AllAuth.Desktop.Forms.Dialogs
             // lblTitle
             // 
             this.lblTitle.Location = new System.Drawing.Point(14, 6);
-            this.lblTitle.Size = new System.Drawing.Size(215, 39);
+            this.lblTitle.Size = new System.Drawing.Size(226, 41);
             this.lblTitle.Text = "Add new group";
             // 
             // panelFormContainer
@@ -96,8 +96,8 @@ namespace AllAuth.Desktop.Forms.Dialogs
             // 
             // NewGroup
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(489, 209);
             this.Name = "NewGroup";
             this.Text = "New Group";

@@ -33,7 +33,7 @@ namespace AllAuth.Desktop.Forms.Dialogs
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RecoverSecondDeviceConfirm));
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.btnStartRecovery = new ButtonAccent();
+            this.btnStartRecovery = new AllAuth.Desktop.Forms.Templates.ButtonAccent();
             this.linkCancel = new System.Windows.Forms.LinkLabel();
             this.panelButtons = new System.Windows.Forms.Panel();
             this.panelFormContainer.SuspendLayout();
@@ -44,12 +44,12 @@ namespace AllAuth.Desktop.Forms.Dialogs
             // lblTitle
             // 
             this.lblTitle.Location = new System.Drawing.Point(8, 4);
-            this.lblTitle.Size = new System.Drawing.Size(325, 41);
+            this.lblTitle.Size = new System.Drawing.Size(347, 41);
             this.lblTitle.Text = "Confirm phone recovery";
             // 
             // panelFormContainer
             // 
-            this.panelFormContainer.Padding = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.panelFormContainer.Padding = new System.Windows.Forms.Padding(5);
             this.panelFormContainer.Size = new System.Drawing.Size(479, 363);
             // 
             // panelContentContainer
@@ -117,8 +117,8 @@ namespace AllAuth.Desktop.Forms.Dialogs
             // 
             // RecoverSecondDeviceConfirm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(479, 363);
             this.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "RecoverSecondDeviceConfirm";

@@ -58,6 +58,7 @@ namespace AllAuth.Desktop.Forms.Dialogs
                 {
                     Invoke((MethodInvoker) delegate
                     {
+                        MessageBox.Show(@"Unexpected error during registration. Please try again.");
                         lblLoginLoading.Visible = false;
                         btnRegister.Enabled = true;
                     });

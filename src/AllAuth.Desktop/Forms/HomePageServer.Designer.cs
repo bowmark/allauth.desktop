@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            this.ctxServerOptions = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.recoverPhoneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panelControlBorder = new System.Windows.Forms.Panel();
             this.panelControlContent = new System.Windows.Forms.Panel();
             this.panelDatabasesContainer = new System.Windows.Forms.Panel();
@@ -43,8 +45,7 @@
             this.panelServerNameContainer = new System.Windows.Forms.Panel();
             this.lblServerName = new System.Windows.Forms.Label();
             this.lblServerOptions = new System.Windows.Forms.Label();
-            this.ctxServerOptions = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.recoverPhoneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ctxServerOptions.SuspendLayout();
             this.panelControlBorder.SuspendLayout();
             this.panelControlContent.SuspendLayout();
             this.panelVerifyDeviceKeys.SuspendLayout();
@@ -52,8 +53,22 @@
             this.panelHeaderBottom.SuspendLayout();
             this.panelHeaderTop.SuspendLayout();
             this.panelServerNameContainer.SuspendLayout();
-            this.ctxServerOptions.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // ctxServerOptions
+            // 
+            this.ctxServerOptions.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.recoverPhoneToolStripMenuItem});
+            this.ctxServerOptions.Name = "ctxServerOptions";
+            this.ctxServerOptions.ShowImageMargin = false;
+            this.ctxServerOptions.Size = new System.Drawing.Size(129, 48);
+            // 
+            // recoverPhoneToolStripMenuItem
+            // 
+            this.recoverPhoneToolStripMenuItem.Name = "recoverPhoneToolStripMenuItem";
+            this.recoverPhoneToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
+            this.recoverPhoneToolStripMenuItem.Text = "Recover Phone";
+            this.recoverPhoneToolStripMenuItem.Click += new System.EventHandler(this.recoverPhoneToolStripMenuItem_Click);
             // 
             // panelControlBorder
             // 
@@ -81,7 +96,7 @@
             this.panelControlContent.Controls.Add(this.panelHeaderTop);
             this.panelControlContent.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelControlContent.Location = new System.Drawing.Point(1, 1);
-            this.panelControlContent.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.panelControlContent.Margin = new System.Windows.Forms.Padding(0);
             this.panelControlContent.Name = "panelControlContent";
             this.panelControlContent.Size = new System.Drawing.Size(761, 241);
             this.panelControlContent.TabIndex = 0;
@@ -92,7 +107,7 @@
             this.panelDatabasesContainer.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.panelDatabasesContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelDatabasesContainer.Location = new System.Drawing.Point(0, 149);
-            this.panelDatabasesContainer.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.panelDatabasesContainer.Margin = new System.Windows.Forms.Padding(0);
             this.panelDatabasesContainer.Name = "panelDatabasesContainer";
             this.panelDatabasesContainer.Size = new System.Drawing.Size(761, 92);
             this.panelDatabasesContainer.TabIndex = 3;
@@ -102,6 +117,7 @@
             this.panelVerifyDeviceKeys.Controls.Add(this.lblVerifyDeviceKeys);
             this.panelVerifyDeviceKeys.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelVerifyDeviceKeys.Location = new System.Drawing.Point(0, 114);
+            this.panelVerifyDeviceKeys.Margin = new System.Windows.Forms.Padding(0);
             this.panelVerifyDeviceKeys.Name = "panelVerifyDeviceKeys";
             this.panelVerifyDeviceKeys.Size = new System.Drawing.Size(761, 35);
             this.panelVerifyDeviceKeys.TabIndex = 4;
@@ -128,6 +144,7 @@
             this.panelSecondDeviceNotLinked.Controls.Add(this.lblSecondDeviceNotLinked);
             this.panelSecondDeviceNotLinked.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelSecondDeviceNotLinked.Location = new System.Drawing.Point(0, 79);
+            this.panelSecondDeviceNotLinked.Margin = new System.Windows.Forms.Padding(0);
             this.panelSecondDeviceNotLinked.Name = "panelSecondDeviceNotLinked";
             this.panelSecondDeviceNotLinked.Size = new System.Drawing.Size(761, 35);
             this.panelSecondDeviceNotLinked.TabIndex = 0;
@@ -140,6 +157,7 @@
             this.lblSecondDeviceNotLinked.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblSecondDeviceNotLinked.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(68)))), ((int)(((byte)(66)))));
             this.lblSecondDeviceNotLinked.Location = new System.Drawing.Point(0, 0);
+            this.lblSecondDeviceNotLinked.Margin = new System.Windows.Forms.Padding(0);
             this.lblSecondDeviceNotLinked.Name = "lblSecondDeviceNotLinked";
             this.lblSecondDeviceNotLinked.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.lblSecondDeviceNotLinked.Size = new System.Drawing.Size(761, 35);
@@ -226,20 +244,6 @@
             this.lblServerOptions.TabIndex = 1;
             this.lblServerOptions.Click += new System.EventHandler(this.lblServerOptions_Click);
             // 
-            // ctxServerOptions
-            // 
-            this.ctxServerOptions.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.recoverPhoneToolStripMenuItem});
-            this.ctxServerOptions.Name = "ctxServerOptions";
-            this.ctxServerOptions.Size = new System.Drawing.Size(154, 48);
-            // 
-            // recoverPhoneToolStripMenuItem
-            // 
-            this.recoverPhoneToolStripMenuItem.Name = "recoverPhoneToolStripMenuItem";
-            this.recoverPhoneToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
-            this.recoverPhoneToolStripMenuItem.Text = "Recover Phone";
-            this.recoverPhoneToolStripMenuItem.Click += new System.EventHandler(this.recoverPhoneToolStripMenuItem_Click);
-            // 
             // HomePageServer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -249,6 +253,7 @@
             this.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "HomePageServer";
             this.Size = new System.Drawing.Size(763, 243);
+            this.ctxServerOptions.ResumeLayout(false);
             this.panelControlBorder.ResumeLayout(false);
             this.panelControlBorder.PerformLayout();
             this.panelControlContent.ResumeLayout(false);
@@ -258,7 +263,6 @@
             this.panelHeaderBottom.ResumeLayout(false);
             this.panelHeaderTop.ResumeLayout(false);
             this.panelServerNameContainer.ResumeLayout(false);
-            this.ctxServerOptions.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

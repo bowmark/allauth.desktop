@@ -466,6 +466,9 @@
     <EmbeddedResource Include="Forms\SubscriptionInfoBar.resx">
       <DependentUpon>SubscriptionInfoBar.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Templates\TextBoxPassword.resx">
+      <DependentUpon>TextBoxPassword.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -476,6 +479,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="Mono.Data.Sqlite.dll.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="config.dev.ini" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -541,13 +547,16 @@
     <None Include="Resources\Logo-Full_white_131x31.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\ring.gif" />
+    <None Include="Resources\loading_spinner.gif" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\ic_arrow_drop_down_white_18dp_1x.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\show8 %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\loading_spinner_greybg.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\packages\Mono.Data.Sqlite.Portable.1.0.3.5\tools\Mono.Data.Sqlite.Portable.targets" Condition="Exists('..\..\packages\Mono.Data.Sqlite.Portable.1.0.3.5\tools\Mono.Data.Sqlite.Portable.targets')" />
@@ -556,8 +565,8 @@
     <Error Condition="Exists('..\..\packages\Mono.Data.Sqlite.Portable.1.0.3.5\tools\Mono.Data.Sqlite.Portable.targets')" Text="The build restored NuGet packages. Build the project again to include these packages in the build." />
   </Target>
   <PropertyGroup>
-    <PreBuildEvent>if not '$(SolutionDir)' == '*Undefined*' start /MIN $(SolutionDir)tools\nant\NAnt.exe -buildfile:$(SolutionDir)default.build -D:configuration=$(ConfigurationName) allauth-prebuild</PreBuildEvent>
-    <PostBuildEvent>if not '$(SolutionDir)' == '*Undefined*' start /MIN $(SolutionDir)tools\nant\NAnt.exe -buildfile:$(SolutionDir)default.build -D:configuration=$(ConfigurationName) allauth-postbuild</PostBuildEvent>
+    <PreBuildEvent Condition="'$(OS)' != 'Unix'">if not '$(SolutionDir)' == '*Undefined*' start /MIN $(SolutionDir)tools\nant\NAnt.exe -buildfile:$(SolutionDir)default.build -D:configuration=$(ConfigurationName) allauth-prebuild</PreBuildEvent>
+    <PostBuildEvent Condition="'$(OS)' != 'Unix'">if not '$(SolutionDir)' == '*Undefined*' start /MIN $(SolutionDir)tools\nant\NAnt.exe -buildfile:$(SolutionDir)default.build -D:configuration=$(ConfigurationName) allauth-postbuild</PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

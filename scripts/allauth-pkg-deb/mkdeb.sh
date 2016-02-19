@@ -13,7 +13,7 @@ PROGRAM_VERSION="$1"
 FULL_VERSION="$2"
 EXE_NAME="AllAuth.exe"
 PACKAGE_NAME="${PROGRAM_NAME}_current_all"
-BUILD_DIR="build/release/AllAuth.Common.Desktop"
+BUILD_DIR="build/release/AllAuth.Desktop"
 SCRIPT_DIR="scripts/${PROGRAM_NAME}-pkg-deb"
 TEMP_DIR="/tmp/$PACKAGE_NAME"
 TEMP_DIR_CONTROL="$TEMP_DIR/DEBIAN"
@@ -21,7 +21,7 @@ TEMP_DIR_BIN="$TEMP_DIR/usr/bin"
 TEMP_DIR_LIB="$TEMP_DIR/usr/lib/${PROGRAM_NAME}"
 TEMP_DIR_DOC="$TEMP_DIR/usr/share/doc/${PROGRAM_NAME}"
 TEMP_DIR_SHORTCUT="$TEMP_DIR/usr/share/applications"
-OUTPUT_DIR="build/dist/${PROGRAM_NAME}"
+OUTPUT_DIR="build/dist"
 
 COPYRIGHT=$(cat <<EOF
 Copyright 2016 Bowmark Ltd
@@ -58,9 +58,11 @@ chmod +x "$TEMP_DIR_BIN/${PROGRAM_NAME}"
 cp -R "$BUILD_DIR/VERSION" "$TEMP_DIR_LIB/"
 cp -R "$BUILD_DIR/"*.dll "$TEMP_DIR_LIB/"
 cp -R "$BUILD_DIR/"*.exe "$TEMP_DIR_LIB/"
+cp -R "$BUILD_DIR/"*.config "$TEMP_DIR_LIB/" || :
 cp -R "$BUILD_DIR/"*.ini "$TEMP_DIR_LIB/" || :
 cp -R "$BUILD_DIR/Resources" "$TEMP_DIR_LIB/" || :
 rm -f "$TEMP_DIR_LIB/sqlite3.dll"
+chmod -R 0644 "$TEMP_DIR_LIB/"*
 cp "$SCRIPT_DIR/allauth.desktop" "$TEMP_DIR_SHORTCUT"
 chmod 0644 "$TEMP_DIR_SHORTCUT/allauth.desktop"
 echo "$COPYRIGHT" > "$TEMP_DIR_DOC/copyright"
@@ -68,12 +70,12 @@ echo "$COPYRIGHT" > "$TEMP_DIR_DOC/copyright"
 INSTALLED_SIZE=$(du -s $TEMP_DIR | awk '{print $1}')
 DEB_CONTROL=$(cat <<EOF
 Package: ${PROGRAM_TITLE}
-Version: ${FULL_VERSION}
+Version: ${PROGRAM_VERSION}
 Section: misc
 Priority: optional
 Architecture: all
 Installed-Size: ${INSTALLED_SIZE}
-Depends: mono-runtime (>= 3.0~), libmono-system-data-linq4.0-cil, libmono-system-xml-linq4.0-cil, libmono-system-management4.0-cil, libsqlite3-0
+Depends: mono-runtime (>= 3.2~), libmono-system-data-linq4.0-cil, libmono-system-xml-linq4.0-cil, libmono-system-management4.0-cil, libsqlcipher0
 Maintainer: Bowmark Ltd <dev@allauthapp.com>
 Description: Login manager
 EOF

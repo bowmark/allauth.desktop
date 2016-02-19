@@ -8,6 +8,7 @@ using AllAuth.Desktop.App;
 using AllAuth.Desktop.Common.Models;
 using AllAuth.Desktop.Forms;
 using AllAuth.Desktop.Forms.Dialogs;
+using AllAuth.Lib;
 using AllAuth.Lib.APIs;
 using AllAuth.Lib.Crypto;
 using AllAuth.Lib.ManagementAPI.Requests.Authenticated;
@@ -82,10 +83,20 @@ namespace AllAuth.Desktop
 
         public void Stop()
         {
+            Logger.Verbose("Stopping application controller");
+
+            if (!_mainForm.IsDisposed)
+            {
+                _mainForm.Close();
+                _mainForm.Dispose();
+            }
+
             foreach (var server in _syncServers)
                 server.Value.Stop();
             
             _syncManagement?.Stop();
+
+            Logger.Verbose("Stopped application controller");
         }
 
         public void SetActiveDatabase(int databaseId)
@@ -717,6 +728,9 @@ namespace AllAuth.Desktop
 
         public async Task<bool> LogoutServerManagement()
         {
+            _syncManagement.Stop();
+            _syncManagement = null;
+
             var serverManagementAccount = GetServerManagementAccount();
             var managedServers = Model.ServerAccounts.Find(new ServerAccount {Managed = true});
 
@@ -754,10 +768,7 @@ namespace AllAuth.Desktop
                 // We'll handle this silently and assume the API key has already been revoked 
                 // for some other reason.
             }
-
-            Program.Restart = true;
-            _mainForm.Invoke((MethodInvoker)_mainForm.Close);
-
+            
             return true;
         }
 
@@ -972,11 +983,7 @@ namespace AllAuth.Desktop
             }
             catch (RequestException e)
             {
-                if (Program.AppEnvDebug)
-                    MessageBox.Show(@"Unexpected error contacting server: " + e.Message);
-                else
-                    MessageBox.Show(@"Unexpected error contacting server");
-
+                Logger.Warning("Failed to register with the management API: " + e.Message);
                 return false;
             }
 
@@ -1007,14 +1014,16 @@ namespace AllAuth.Desktop
             {
                 response = request.GetResponse(apiClient);
             }
-            catch (NotFoundException)
+            catch (NotFoundException e)
             {
-                MessageBox.Show(@"The code appears to be incorrect.");
+                Logger.Warning("Incorrect confirmation code: " + e.Message);
+                //MessageBox.Show(@"The code appears to be incorrect.");
                 return false;
             }
-            catch (RequestException)
+            catch (RequestException e)
             {
-                MessageBox.Show(@"An unexpected error occured contacting the server.");
+                //MessageBox.Show(@"An unexpected error occured contacting the server.");
+                Logger.Warning("Unexpected error contacting management API: " + e.Message);
                 return false;
             }
 

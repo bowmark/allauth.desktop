@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -8,11 +9,22 @@ namespace AllAuth.Desktop.Forms
     internal partial class HomePage : Templates.BaseControl
     {
         private readonly Controller _controller;
-        
+
+        private bool _loadingAnimationRunning;
+        private Label _loadingAnimation;
+
         public HomePage(Controller controller)
         {
             InitializeComponent();
             _controller = controller;
+
+            _loadingAnimation = new Label
+            {
+                Dock = DockStyle.Fill,
+                Image = Properties.Resources.loading_spinner_greybg,
+                ImageAlign = ContentAlignment.MiddleCenter,
+                AutoSize = false
+            };
         }
 
         private void HomePage_Load(object sender, System.EventArgs e)
@@ -24,20 +36,26 @@ namespace AllAuth.Desktop.Forms
         public void UpdateControl()
         {
             var serverAccounts = Model.ServerAccounts.Find(new Common.Models.ServerAccount()).ToList();
-
+            
             if (serverAccounts.Count == 0)
             {
-                // There shouldn't be a case where the main form has loaded without any server accounts.
-                var label = new Label
+                if (!_loadingAnimationRunning)
                 {
-                    Dock = DockStyle.Fill,
-                    Image = Properties.Resources.loading_spinner,
-                    ImageAlign = ContentAlignment.MiddleCenter,
-                    AutoSize = false
-                };
+                    _loadingAnimationRunning = true;
+                    ImageAnimator.Animate(_loadingAnimation.Image, AnimateLoader);
+                }
+
+                // There shouldn't be a case where the main form has loaded without any server accounts.
+                
                 panelContentContainer.Controls.Clear();
-                panelContentContainer.Controls.Add(label);
+                panelContentContainer.Controls.Add(_loadingAnimation);
                 return;
+            }
+
+            if (_loadingAnimationRunning)
+            {
+                ImageAnimator.StopAnimate(_loadingAnimation.Image, AnimateLoader);
+                _loadingAnimationRunning = false;
             }
 
             var contentControls = new List<Control>();
@@ -141,6 +159,14 @@ namespace AllAuth.Desktop.Forms
             panelContentContainer.Controls.Clear();
             foreach (var control in contentControls)
                 panelContentContainer.Controls.Add(control);
+        }
+
+        private void AnimateLoader(object sender, EventArgs eventArgs)
+        {
+            if (!_loadingAnimationRunning)
+                return;
+            ImageAnimator.UpdateFrames();
+            _loadingAnimation.Invalidate();
         }
 
         private void OnDatabaseContainerMouseEnter(Panel databaseContainer)

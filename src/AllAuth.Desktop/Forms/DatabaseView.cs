@@ -194,12 +194,20 @@ namespace AllAuth.Desktop.Forms
             //foreach (var control in controlsList)
             //    panelEntriesContainer.Controls.Add(control);
             panelEntriesContainer.ResumeLayout(false);
-
+            
             panelEntriesContainer.AutoScroll = true;
             panelEntriesContainer.AutoScrollPosition = origScrollPositition;
 
             if (selectedControl != null)
                 panelEntriesContainer.ScrollControlIntoView(selectedControl);
+
+            if (Program.IsRunningOnMono())
+            {
+                // Mono doesn't seem to wan't to automatically show scroll bars, so we'll have to force it
+                panelEntriesContainer.VerticalScroll.Visible = true;
+            }
+
+            panelEntriesContainer.Focus();
         }
 
         public void DeselectEntry()

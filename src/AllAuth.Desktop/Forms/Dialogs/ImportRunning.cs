@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 
 namespace AllAuth.Desktop.Forms.Dialogs
 {
@@ -8,7 +9,7 @@ namespace AllAuth.Desktop.Forms.Dialogs
 
         private readonly Controller.ImportTypes _importType;
         private readonly string _importFilePath;
-
+        
         public ImportRunning(Controller controller, Controller.ImportTypes importType, string importFilePath)
         {
             InitializeComponent();
@@ -16,9 +17,11 @@ namespace AllAuth.Desktop.Forms.Dialogs
             Controller = controller;
             _importType = importType;
             _importFilePath = importFilePath;
-        }
 
-        private async void OpeningAccountManagement_Shown(object sender, System.EventArgs e)
+            StartLoadingAnimation(lblLoadingImage);
+        }
+        
+        private async void ImportRunning_Shown(object sender, EventArgs e)
         {
             var success = false;
             await Task.Run(() =>

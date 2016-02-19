@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblLoadingImage = new System.Windows.Forms.Label();
             this.lblLoadingText = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panelFormContainer.SuspendLayout();
@@ -38,24 +38,24 @@
             // 
             // panelFormContainer
             // 
-            this.panelFormContainer.Padding = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.panelFormContainer.Padding = new System.Windows.Forms.Padding(5);
             this.panelFormContainer.Size = new System.Drawing.Size(337, 117);
             // 
             // panelContentContainer
             // 
             this.panelContentContainer.Controls.Add(this.panel1);
-            this.panelContentContainer.Controls.Add(this.label1);
+            this.panelContentContainer.Controls.Add(this.lblLoadingImage);
             this.panelContentContainer.Location = new System.Drawing.Point(5, 5);
             this.panelContentContainer.Size = new System.Drawing.Size(327, 107);
             // 
-            // label1
+            // labelLoadingImage
             // 
-            this.label1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.label1.Image = global::AllAuth.Desktop.Properties.Resources.loading_spinner;
-            this.label1.Location = new System.Drawing.Point(0, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(138, 107);
-            this.label1.TabIndex = 0;
+            this.lblLoadingImage.Dock = System.Windows.Forms.DockStyle.Left;
+            this.lblLoadingImage.Image = global::AllAuth.Desktop.Properties.Resources.loading_spinner;
+            this.lblLoadingImage.Location = new System.Drawing.Point(0, 0);
+            this.lblLoadingImage.Name = "lblLoadingImage";
+            this.lblLoadingImage.Size = new System.Drawing.Size(138, 107);
+            this.lblLoadingImage.TabIndex = 0;
             // 
             // lblLoadingText
             // 
@@ -79,12 +79,12 @@
             // 
             // ImportRunning
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(337, 117);
             this.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "ImportRunning";
-            this.Shown += new System.EventHandler(this.OpeningAccountManagement_Shown);
+            this.Shown += new System.EventHandler(this.ImportRunning_Shown);
             this.panelFormContainer.ResumeLayout(false);
             this.panelContentContainer.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
@@ -94,7 +94,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblLoadingImage;
         private System.Windows.Forms.Label lblLoadingText;
         private System.Windows.Forms.Panel panel1;
     }

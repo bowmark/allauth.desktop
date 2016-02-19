@@ -52,7 +52,7 @@ namespace AllAuth.Desktop.Forms.Dialogs
             // lblTitle
             // 
             this.lblTitle.Location = new System.Drawing.Point(7, 4);
-            this.lblTitle.Size = new System.Drawing.Size(308, 41);
+            this.lblTitle.Size = new System.Drawing.Size(331, 41);
             this.lblTitle.Text = "Register a new account";
             // 
             // panelFormContainer
@@ -72,7 +72,7 @@ namespace AllAuth.Desktop.Forms.Dialogs
             // 
             this.txtEmailAddress.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.txtEmailAddress.BackColor = System.Drawing.Color.Transparent;
-            this.txtEmailAddress.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtEmailAddress.Font = new System.Drawing.Font("Open Sans", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtEmailAddress.Location = new System.Drawing.Point(12, 40);
             this.txtEmailAddress.Margin = new System.Windows.Forms.Padding(0);
             this.txtEmailAddress.MultiLine = false;
@@ -122,7 +122,7 @@ namespace AllAuth.Desktop.Forms.Dialogs
             // 
             this.txtRecoveryPassphraseRepeat.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.txtRecoveryPassphraseRepeat.BackColor = System.Drawing.Color.Transparent;
-            this.txtRecoveryPassphraseRepeat.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtRecoveryPassphraseRepeat.Font = new System.Drawing.Font("Open Sans", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRecoveryPassphraseRepeat.Location = new System.Drawing.Point(14, 203);
             this.txtRecoveryPassphraseRepeat.Margin = new System.Windows.Forms.Padding(0);
             this.txtRecoveryPassphraseRepeat.MultiLine = false;
@@ -137,7 +137,7 @@ namespace AllAuth.Desktop.Forms.Dialogs
             // 
             this.txtRecoveryPassphraseFirst.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.txtRecoveryPassphraseFirst.BackColor = System.Drawing.Color.Transparent;
-            this.txtRecoveryPassphraseFirst.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtRecoveryPassphraseFirst.Font = new System.Drawing.Font("Open Sans", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRecoveryPassphraseFirst.Location = new System.Drawing.Point(12, 123);
             this.txtRecoveryPassphraseFirst.Margin = new System.Windows.Forms.Padding(0);
             this.txtRecoveryPassphraseFirst.MultiLine = false;
@@ -212,8 +212,8 @@ namespace AllAuth.Desktop.Forms.Dialogs
             // ServerManagementRegister
             // 
             this.AcceptButton = this.btnRegister;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(732, 383);
             this.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(5, 8, 5, 8);

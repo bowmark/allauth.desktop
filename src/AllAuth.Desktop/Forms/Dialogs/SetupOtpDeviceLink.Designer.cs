@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SetupOtpDeviceLink));
             this.txtOtpDeviceLinkCode = new System.Windows.Forms.TextBox();
             this.lblQrCode = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -39,13 +40,13 @@
             // 
             this.lblTitle.Location = new System.Drawing.Point(11, 8);
             this.lblTitle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblTitle.Size = new System.Drawing.Size(296, 41);
+            this.lblTitle.Size = new System.Drawing.Size(318, 41);
             this.lblTitle.Text = "Link device to account";
             // 
             // panelFormContainer
             // 
             this.panelFormContainer.Padding = new System.Windows.Forms.Padding(5, 7, 5, 7);
-            this.panelFormContainer.Size = new System.Drawing.Size(413, 427);
+            this.panelFormContainer.Size = new System.Drawing.Size(433, 453);
             // 
             // panelContentContainer
             // 
@@ -54,7 +55,7 @@
             this.panelContentContainer.Controls.Add(this.label2);
             this.panelContentContainer.Location = new System.Drawing.Point(5, 59);
             this.panelContentContainer.Margin = new System.Windows.Forms.Padding(4);
-            this.panelContentContainer.Size = new System.Drawing.Size(403, 361);
+            this.panelContentContainer.Size = new System.Drawing.Size(423, 387);
             // 
             // txtOtpDeviceLinkCode
             // 
@@ -67,31 +68,34 @@
             // 
             // lblQrCode
             // 
-            this.lblQrCode.Image = global::AllAuth.Desktop.Properties.Resources.loading_spinner;
-            this.lblQrCode.Location = new System.Drawing.Point(83, 136);
-            this.lblQrCode.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblQrCode.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblQrCode.Image = ((System.Drawing.Image)(resources.GetObject("lblQrCode.Image")));
+            this.lblQrCode.Location = new System.Drawing.Point(0, 139);
+            this.lblQrCode.Margin = new System.Windows.Forms.Padding(0);
             this.lblQrCode.Name = "lblQrCode";
-            this.lblQrCode.Size = new System.Drawing.Size(232, 232);
+            this.lblQrCode.Size = new System.Drawing.Size(423, 248);
             this.lblQrCode.TabIndex = 3;
             // 
             // label2
             // 
+            this.label2.Dock = System.Windows.Forms.DockStyle.Top;
             this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
-            this.label2.Location = new System.Drawing.Point(13, 17);
+            this.label2.Location = new System.Drawing.Point(0, 0);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(394, 130);
+            this.label2.Padding = new System.Windows.Forms.Padding(15);
+            this.label2.Size = new System.Drawing.Size(423, 139);
             this.label2.TabIndex = 5;
             this.label2.Text = "Select \"Add Account\" from the main menu within the AllAuth app on your phone and " +
-    "scan the image below with the camera.\r\n\r\nOnce scanned, the process will continue" +
-    " automatically.";
+    "scan the image below with the camera.\r\n\r\nOnce scanned, this form will continue a" +
+    "utomatically.";
             // 
             // SetupOtpDeviceLink
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(425, 440);
+            this.ClientSize = new System.Drawing.Size(445, 466);
             this.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(4, 7, 4, 7);
             this.Name = "SetupOtpDeviceLink";

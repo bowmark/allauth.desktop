@@ -52,6 +52,7 @@ namespace AllAuth.Desktop.Forms
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
+            StartLoadingAnimation(lblLoginLoading);
             lblLoginLoading.Visible = true;
             btnLoginStep1.Enabled = false;
 
@@ -66,6 +67,7 @@ namespace AllAuth.Desktop.Forms
                     {
                         lblLoginLoading.Visible = false;
                         btnLoginStep1.Enabled = true;
+                        StopLoadingAnimation();
                     });
                     return;
                 }

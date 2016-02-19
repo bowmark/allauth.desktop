@@ -45,19 +45,23 @@ namespace AllAuth.Desktop.Forms.Dialogs
             // 
             // lblTitle
             // 
-            this.lblTitle.Location = new System.Drawing.Point(7, 4);
-            this.lblTitle.Size = new System.Drawing.Size(401, 41);
+            this.lblTitle.Location = new System.Drawing.Point(84, 19);
+            this.lblTitle.Margin = new System.Windows.Forms.Padding(36, 0, 36, 0);
+            this.lblTitle.Size = new System.Drawing.Size(426, 41);
             this.lblTitle.Text = "Log in to your AllAuth account";
             // 
             // panelFormContainer
             // 
-            this.panelFormContainer.Size = new System.Drawing.Size(528, 208);
+            this.panelFormContainer.Padding = new System.Windows.Forms.Padding(72, 24, 72, 24);
+            this.panelFormContainer.Size = new System.Drawing.Size(6336, 998);
             // 
             // panelContentContainer
             // 
             this.panelContentContainer.Controls.Add(this.panelEmailPassword);
-            this.panelContentContainer.Padding = new System.Windows.Forms.Padding(10, 10, 10, 10);
-            this.panelContentContainer.Size = new System.Drawing.Size(516, 146);
+            this.panelContentContainer.Location = new System.Drawing.Point(72, 76);
+            this.panelContentContainer.Margin = new System.Windows.Forms.Padding(36, 14, 36, 14);
+            this.panelContentContainer.Padding = new System.Windows.Forms.Padding(120, 48, 120, 48);
+            this.panelContentContainer.Size = new System.Drawing.Size(6192, 898);
             // 
             // panelEmailPassword
             // 
@@ -65,9 +69,10 @@ namespace AllAuth.Desktop.Forms.Dialogs
             this.panelEmailPassword.BackColor = System.Drawing.Color.White;
             this.panelEmailPassword.Controls.Add(this.tableLayoutPanel1);
             this.panelEmailPassword.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelEmailPassword.Location = new System.Drawing.Point(10, 10);
+            this.panelEmailPassword.Location = new System.Drawing.Point(120, 48);
+            this.panelEmailPassword.Margin = new System.Windows.Forms.Padding(36, 14, 36, 14);
             this.panelEmailPassword.Name = "panelEmailPassword";
-            this.panelEmailPassword.Size = new System.Drawing.Size(496, 134);
+            this.panelEmailPassword.Size = new System.Drawing.Size(5952, 642);
             this.panelEmailPassword.TabIndex = 6;
             // 
             // tableLayoutPanel1
@@ -81,13 +86,14 @@ namespace AllAuth.Desktop.Forms.Dialogs
             this.tableLayoutPanel1.Controls.Add(this.btnLogin, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.txtEmailAddress, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.txtRecoveryPassword, 1, 1);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(11, 3);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(132, 14);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(36, 14, 36, 14);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 3;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(493, 128);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(5916, 614);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // label2
@@ -97,9 +103,10 @@ namespace AllAuth.Desktop.Forms.Dialogs
             this.label2.Font = new System.Drawing.Font("Segoe UI Semilight", 12F);
             this.label2.ForeColor = System.Drawing.Color.DimGray;
             this.label2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.label2.Location = new System.Drawing.Point(3, 0);
+            this.label2.Location = new System.Drawing.Point(36, 0);
+            this.label2.Margin = new System.Windows.Forms.Padding(36, 0, 36, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(152, 42);
+            this.label2.Size = new System.Drawing.Size(152, 202);
             this.label2.TabIndex = 2;
             this.label2.Text = "Email address";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -110,9 +117,10 @@ namespace AllAuth.Desktop.Forms.Dialogs
             this.label6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label6.Font = new System.Drawing.Font("Segoe UI Semilight", 12F);
             this.label6.ForeColor = System.Drawing.Color.DimGray;
-            this.label6.Location = new System.Drawing.Point(3, 42);
+            this.label6.Location = new System.Drawing.Point(36, 202);
+            this.label6.Margin = new System.Windows.Forms.Padding(36, 0, 36, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(152, 42);
+            this.label6.Size = new System.Drawing.Size(152, 202);
             this.label6.TabIndex = 6;
             this.label6.Text = "Recovery passphrase";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -122,11 +130,11 @@ namespace AllAuth.Desktop.Forms.Dialogs
             this.btnLogin.BackColor = System.Drawing.Color.Transparent;
             this.btnLogin.DialogResult = System.Windows.Forms.DialogResult.None;
             this.btnLogin.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnLogin.Location = new System.Drawing.Point(158, 84);
+            this.btnLogin.Location = new System.Drawing.Point(224, 404);
             this.btnLogin.Margin = new System.Windows.Forms.Padding(0);
             this.btnLogin.Name = "btnLogin";
-            this.btnLogin.Padding = new System.Windows.Forms.Padding(5, 5, 5, 5);
-            this.btnLogin.Size = new System.Drawing.Size(193, 42);
+            this.btnLogin.Padding = new System.Windows.Forms.Padding(60, 24, 60, 24);
+            this.btnLogin.Size = new System.Drawing.Size(2316, 202);
             this.btnLogin.TabIndex = 7;
             this.btnLogin.TextValue = "Log in";
             this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
@@ -135,14 +143,14 @@ namespace AllAuth.Desktop.Forms.Dialogs
             // 
             this.txtEmailAddress.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.txtEmailAddress.BackColor = System.Drawing.Color.Transparent;
-            this.txtEmailAddress.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtEmailAddress.Location = new System.Drawing.Point(158, 0);
+            this.txtEmailAddress.Font = new System.Drawing.Font("Open Sans", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtEmailAddress.Location = new System.Drawing.Point(224, 0);
             this.txtEmailAddress.Margin = new System.Windows.Forms.Padding(0);
             this.txtEmailAddress.MultiLine = false;
             this.txtEmailAddress.Name = "txtEmailAddress";
-            this.txtEmailAddress.Padding = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.txtEmailAddress.Padding = new System.Windows.Forms.Padding(60, 24, 60, 24);
             this.txtEmailAddress.Readonly = false;
-            this.txtEmailAddress.Size = new System.Drawing.Size(335, 42);
+            this.txtEmailAddress.Size = new System.Drawing.Size(4020, 202);
             this.txtEmailAddress.TabIndex = 8;
             this.txtEmailAddress.TextValue = "";
             // 
@@ -150,23 +158,24 @@ namespace AllAuth.Desktop.Forms.Dialogs
             // 
             this.txtRecoveryPassword.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.txtRecoveryPassword.BackColor = System.Drawing.Color.Transparent;
-            this.txtRecoveryPassword.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtRecoveryPassword.Location = new System.Drawing.Point(158, 42);
+            this.txtRecoveryPassword.Font = new System.Drawing.Font("Open Sans", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtRecoveryPassword.Location = new System.Drawing.Point(224, 202);
             this.txtRecoveryPassword.Margin = new System.Windows.Forms.Padding(0);
             this.txtRecoveryPassword.MultiLine = false;
             this.txtRecoveryPassword.Name = "txtRecoveryPassword";
-            this.txtRecoveryPassword.Padding = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.txtRecoveryPassword.Padding = new System.Windows.Forms.Padding(60, 24, 60, 24);
             this.txtRecoveryPassword.Readonly = false;
-            this.txtRecoveryPassword.Size = new System.Drawing.Size(335, 42);
+            this.txtRecoveryPassword.Size = new System.Drawing.Size(4020, 202);
             this.txtRecoveryPassword.TabIndex = 9;
             this.txtRecoveryPassword.TextValue = "";
             // 
             // ServerManagementLogin
             // 
             this.AcceptButton = this.btnLogin;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
-            this.ClientSize = new System.Drawing.Size(528, 208);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.ClientSize = new System.Drawing.Size(1596, 873);
             this.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Margin = new System.Windows.Forms.Padding(48, 24, 48, 24);
             this.Name = "ServerManagementLogin";
             this.Text = "Log in";
             this.panelFormContainer.ResumeLayout(false);

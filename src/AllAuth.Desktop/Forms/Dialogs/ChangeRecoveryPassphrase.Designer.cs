@@ -47,12 +47,12 @@
             // lblTitle
             // 
             this.lblTitle.Location = new System.Drawing.Point(8, 4);
-            this.lblTitle.Size = new System.Drawing.Size(382, 41);
+            this.lblTitle.Size = new System.Drawing.Size(409, 41);
             this.lblTitle.Text = "Change recovery passphrase";
             // 
             // panelFormContainer
             // 
-            this.panelFormContainer.Padding = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.panelFormContainer.Padding = new System.Windows.Forms.Padding(5);
             this.panelFormContainer.Size = new System.Drawing.Size(704, 373);
             // 
             // panelContentContainer
@@ -73,12 +73,12 @@
             // 
             this.txtCurrentPassphrase.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.txtCurrentPassphrase.BackColor = System.Drawing.Color.Transparent;
-            this.txtCurrentPassphrase.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCurrentPassphrase.Font = new System.Drawing.Font("Open Sans", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCurrentPassphrase.Location = new System.Drawing.Point(15, 45);
             this.txtCurrentPassphrase.Margin = new System.Windows.Forms.Padding(0);
             this.txtCurrentPassphrase.MultiLine = false;
             this.txtCurrentPassphrase.Name = "txtCurrentPassphrase";
-            this.txtCurrentPassphrase.Padding = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.txtCurrentPassphrase.Padding = new System.Windows.Forms.Padding(5);
             this.txtCurrentPassphrase.Readonly = false;
             this.txtCurrentPassphrase.Size = new System.Drawing.Size(315, 42);
             this.txtCurrentPassphrase.TabIndex = 0;
@@ -106,12 +106,12 @@
             // 
             this.txtNewPassphrase.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.txtNewPassphrase.BackColor = System.Drawing.Color.Transparent;
-            this.txtNewPassphrase.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNewPassphrase.Font = new System.Drawing.Font("Open Sans", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNewPassphrase.Location = new System.Drawing.Point(15, 119);
             this.txtNewPassphrase.Margin = new System.Windows.Forms.Padding(0);
             this.txtNewPassphrase.MultiLine = false;
             this.txtNewPassphrase.Name = "txtNewPassphrase";
-            this.txtNewPassphrase.Padding = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.txtNewPassphrase.Padding = new System.Windows.Forms.Padding(5);
             this.txtNewPassphrase.Readonly = false;
             this.txtNewPassphrase.Size = new System.Drawing.Size(315, 42);
             this.txtNewPassphrase.TabIndex = 2;
@@ -130,12 +130,12 @@
             // 
             this.txtNewPassphraseRepeat.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.txtNewPassphraseRepeat.BackColor = System.Drawing.Color.Transparent;
-            this.txtNewPassphraseRepeat.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNewPassphraseRepeat.Font = new System.Drawing.Font("Open Sans", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNewPassphraseRepeat.Location = new System.Drawing.Point(15, 194);
             this.txtNewPassphraseRepeat.Margin = new System.Windows.Forms.Padding(0);
             this.txtNewPassphraseRepeat.MultiLine = false;
             this.txtNewPassphraseRepeat.Name = "txtNewPassphraseRepeat";
-            this.txtNewPassphraseRepeat.Padding = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.txtNewPassphraseRepeat.Padding = new System.Windows.Forms.Padding(5);
             this.txtNewPassphraseRepeat.Readonly = false;
             this.txtNewPassphraseRepeat.Size = new System.Drawing.Size(315, 42);
             this.txtNewPassphraseRepeat.TabIndex = 4;
@@ -197,8 +197,8 @@
             // 
             // ChangeRecoveryPassphrase
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(704, 373);
             this.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "ChangeRecoveryPassphrase";

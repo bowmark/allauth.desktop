@@ -38,8 +38,8 @@ namespace AllAuth.Desktop.Forms
             this.cbLowercase = new System.Windows.Forms.CheckBox();
             this.cbDigits = new System.Windows.Forms.CheckBox();
             this.cbSymbols = new System.Windows.Forms.CheckBox();
-            this.txtGeneratedString = new TextBox();
-            this.btnUsePassword = new ButtonAccent();
+            this.txtGeneratedString = new AllAuth.Desktop.Forms.Templates.TextBox();
+            this.btnUsePassword = new AllAuth.Desktop.Forms.Templates.ButtonAccent();
             this.lblGenerate = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panelFormContainer.SuspendLayout();
@@ -49,7 +49,7 @@ namespace AllAuth.Desktop.Forms
             // 
             // lblTitle
             // 
-            this.lblTitle.Size = new System.Drawing.Size(335, 39);
+            this.lblTitle.Size = new System.Drawing.Size(348, 41);
             this.lblTitle.Text = "Generate new password";
             // 
             // panelFormContainer
@@ -184,8 +184,8 @@ namespace AllAuth.Desktop.Forms
             // 
             // GeneratePassword
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(428, 261);
             this.Name = "GeneratePassword";
             this.Text = "Generate New Password";
