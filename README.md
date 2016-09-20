@@ -1,3 +1,9 @@
+# Abandoned
+
+This project has been abandoned.
+
+---
+
 # AllAuth.Desktop
 
 [![Build status](https://ci.appveyor.com/api/projects/status/iy987c5b8mvpso9a?svg=true)](https://ci.appveyor.com/project/MrLunar/allauth-desktop)
